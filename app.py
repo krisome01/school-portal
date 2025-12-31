@@ -30,7 +30,12 @@ def dashboard(username):
 
 @app.route("/announcements")
 def announcements():
-    return render_template("announcements.html", title="Announcements")
+    announcements = [
+        {"date": "January 6", "emoji": "📅", "text": "School reopens"},
+        {"date": "February 12", "emoji": "📝", "text": "Mock exams start"},
+        {"date": "March 3", "emoji": "👨‍👩‍👧", "text": "Year 7 Parents Evening"}
+    ]
+    return render_template("announcements.html", announcements=announcements, title="Announcements", username="student1")
 
 @app.route("/grades")
 def grades():
@@ -45,3 +50,4 @@ def logout():
     return redirect(url_for("home"))
 
 # REMOVE app.run() — Render will run the app using gunicorn
+
