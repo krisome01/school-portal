@@ -1,35 +1,5 @@
-ANNOUNCEMENTS_FILE = "announcements.json"
-
-def load_announcements():
-    if os.path.exists(ANNOUNCEMENTS_FILE):
-        with open(ANNOUNCEMENTS_FILE, "r") as f:
-            return json.load(f)
-    return []
-
-def save_announcements(data):
-    with open(ANNOUNCEMENTS_FILE, "w") as f:
-        json.dump(data, f, indent=2)
-
-@app.route("/announcements", methods=["GET", "POST"])
-def announcements():
-    announcements_list = load_announcements()
-
-    if request.method == "POST":
-        date = request.form["date"]
-        emoji = request.form["emoji"]
-        text = request.form["text"]
-
-        announcements_list.append({
-            "date": date,
-            "emoji": emoji,
-            "text": text
-        })
-
-        save_announcements(announcements_list)
-
-    return render_template(
-        "announcements.html",
-        announcements=announcements_list,
-        title="Announcements",
-        username="student1"
-    )
+{% extends "layout.html" %}
+{% block content %}
+<h1>📢 Announcements</h1>
+<p>This page is under construction.</p>
+{% endblock %}
