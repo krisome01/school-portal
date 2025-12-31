@@ -163,21 +163,41 @@ quiz_questions = [
 @app.route("/quiz/<username>/<role>/<avatar>", methods=["GET", "POST"])
 def quiz(username, role, avatar):
     if "quiz_index" not in session:
-        session["quiz_index"] = 0
-        session["score"] = 0
+    session["quiz_index"] = 0
+    session["score"] = 0
+
+    # Shuffle questions once per quiz
+   
+    shuffled = quiz_questions.copy()
+    random.shuffle(shuffled)
+    session["quiz_order"] = shuffled
 
     index = session["quiz_index"]
     score = session["score"]
     message = ""
 
-    if index >= len(quiz_questions):
-        final_score = score
-        session.pop("quiz_index")
-        session.pop("score")
-        return render_template("quiz_result.html", score=final_score,
-                               username=username, role=role, avatar=avatar)
+    if index >= len(session["quiz_order"]):
+    final_score = score
 
-    question = quiz_questions[index]
+    # Assign badge based on score
+    if final_score == 3:
+        users[username]["badge"] = "Gold"
+    elif final_score == 2:
+        users[username]["badge"] = "Silver"
+    elif final_score == 1:
+        users[username]["badge"] = "Bronze"
+    else:
+        users[username]["badge"] = "None"
+
+    # Clear quiz session data
+    session.pop("quiz_index")
+    session.pop("score")
+    session.pop("quiz_order")
+
+    return render_template("quiz_result.html", score=final_score,
+                           username=username, role=role, avatar=avatar)
+
+    question = session["quiz_order"][index]
 
     if request.method == "POST":
         user_answer = request.form["answer"]
@@ -195,6 +215,7 @@ def quiz(username, role, avatar):
 
     
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
