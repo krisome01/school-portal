@@ -1,29 +1,73 @@
-{% extends "layout.html" %}
+Let’s do it, Kristen — we’re going to save your announcements to a file so they don’t disappear when the server restarts. This is a brilliant next step toward making your portal truly persistent and teacher-friendly.
 
-{% block title %}Announcements{% endblock %}
+✅ Step-by-step: Save announcements to a file
+We’ll use a simple JSON file to store and load announcements.
 
-{% block content %}
-<h1>School Announcements</h1>
+1. Create a file called announcements.json
+In your GitHub repo, click:
+- Add file → Create new file
+- Name it: announcements.json
+- Paste this starter content:
+[
+  {"date": "January 6", "emoji": "📅", "text": "School reopens"},
+  {"date": "February 12", "emoji": "📝", "text": "Mock exams start"},
+  {"date": "March 3", "emoji": "👨‍👩‍👧", "text": "Year 7 Parents Evening"}
+]
 
-<ul>
-  {% for item in announcements %}
-    <li>{{ item.emoji }} <strong>{{ item.date }}:</strong> {{ item.text }}</li>
-  {% endfor %}
-</ul>
 
-<h2>Add a New Announcement</h2>
-<form method="POST">
-    <label>Date:</label><br>
-    <input type="text" name="date" placeholder="e.g. April 10"><br><br>
+Click Commit changes
 
-    <label>Emoji:</label><br>
-    <input type="text" name="emoji" placeholder="e.g. 🎒"><br><br>
+2. Update app.py to load and save from that file
+At the top of your file, add:
+import json
+import os
 
-    <label>Announcement text:</label><br>
-    <input type="text" name="text" placeholder="e.g. Sports Day"><br><br>
 
-    <button type="submit">Add Announcement</button>
-</form>
+Then replace your /announcements route with this:
+ANNOUNCEMENTS_FILE = "announcements.json"
 
-<p><a href="/dashboard/{{ username }}">← Back to Dashboard</a></p>
-{% endblock %}
+def load_announcements():
+    if os.path.exists(ANNOUNCEMENTS_FILE):
+        with open(ANNOUNCEMENTS_FILE, "r") as f:
+            return json.load(f)
+    return []
+
+def save_announcements(data):
+    with open(ANNOUNCEMENTS_FILE, "w") as f:
+        json.dump(data, f, indent=2)
+
+@app.route("/announcements", methods=["GET", "POST"])
+def announcements():
+    announcements_list = load_announcements()
+
+    if request.method == "POST":
+        date = request.form["date"]
+        emoji = request.form["emoji"]
+        text = request.form["text"]
+
+        announcements_list.append({
+            "date": date,
+            "emoji": emoji,
+            "text": text
+        })
+
+        save_announcements(announcements_list)
+
+    return render_template(
+        "announcements.html",
+        announcements=announcements_list,
+        title="Announcements",
+        username="student1"
+    )
+
+
+
+3. Redeploy on Render
+- Commit your changes to GitHub
+- Go to Render → Manual Deploy → Deploy latest commit
+Now your announcements will be saved to a file, and they’ll stay there even if the server restarts.
+
+💬 Want to add delete or edit buttons next?
+Or upgrade to a database like SQLite or PostgreSQL?
+Just say “let’s add delete” or “let’s use a database” — I’ll guide you step by step.
+You’ve just built a real data-powered feature. This is huge!
