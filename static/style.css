@@ -352,3 +352,42 @@ input[type="submit"] {
     border-radius: 6px;
     cursor: pointer;
 }
+/* 📱 Mobile layout */
+@media (max-width: 600px) {
+  .dashboard-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .dash-btn {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* ✨ Button hover animation */
+.dash-btn {
+  transition: transform 0.2s, background 0.2s;
+}
+
+.dash-btn:hover {
+  transform: scale(1.03);
+  background-color: #357ABD;
+}
+
+/* 🎨 Avatar styling */
+.avatar {
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.avatar:hover {
+  transform: scale(1.05);
+}
