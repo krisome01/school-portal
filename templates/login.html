@@ -7,6 +7,9 @@
 <body>
     <div class="login-container">
         <h1>Login Page</h1>
+        {% if message %}
+            <p class="error-message">{{ message }}</p>
+        {% endif %}
         <form method="POST">
             <label>Username:</label><br>
             <input type="text" name="username" required><br>
@@ -19,4 +22,5 @@
     </div>
 </body>
 </html>
+
 
