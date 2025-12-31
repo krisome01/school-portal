@@ -1,28 +1,22 @@
 import os
-import json
 import random
 from flask import Flask, render_template, request, redirect, url_for, session
-from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
 
-UPLOAD_FOLDER = "uploads"
-ALLOWED_EXTENSIONS = {"pdf", "docx", "txt", "png", "jpg"}
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-
-def allowed_file(filename):
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
-    
+# -----------------------------
+# USER DATA
+# -----------------------------
 users = {
     "student1": {
-       "password": "password123",
-       "role": "student",
-       "avatar": "student1.png",
-       "house": "red",
-       "badge": "None",
-       "high_score": 0
-},
+        "password": "password123",
+        "role": "student",
+        "avatar": "student1.png",
+        "house": "red",
+        "badge": "None",
+        "high_score": 0
+    },
     "teacher": {
         "password": "teach2025",
         "role": "teacher",
@@ -32,6 +26,9 @@ users = {
     }
 }
 
+# -----------------------------
+# QUIZ QUESTIONS
+# -----------------------------
 quiz_questions = [
     {
         "text": "What is 5 + 7?",
@@ -49,6 +46,10 @@ quiz_questions = [
         "answer": "Paris"
     }
 ]
+
+# -----------------------------
+# LOGIN PAGE
+# -----------------------------
 @app.route("/", methods=["GET", "POST"])
 def login():
     message = ""
@@ -65,19 +66,25 @@ def login():
                                     avatar=user["avatar"]))
         else:
             message = "Oops! That username or password didn't match. Try again?"
-    
+
     return render_template("login.html", message=message)
 
+# -----------------------------
+# DASHBOARD
+# -----------------------------
 @app.route("/dashboard/<username>/<role>/<avatar>")
 def dashboard(username, role, avatar):
 
+    # Calculate house points
     house_points = {"red": 0, "blue": 0, "green": 0, "yellow": 0}
     for user, data in users.items():
         house = data.get("house")
         house_points[house] += data.get("high_score", 0)
 
+    # Determine house of the week
     house_of_week = max(house_points, key=house_points.get)
 
+    # House mottos
     house_mottos = {
         "red": "Courage, creativity, and heart.",
         "blue": "Wisdom, curiosity, and calm.",
@@ -85,15 +92,20 @@ def dashboard(username, role, avatar):
         "yellow": "Kindness, loyalty, and joy."
     }
 
-    return render_template("dashboard.html",
-                           username=username,
-                           role=role,
-                           avatar=avatar,
-                           user=users[username],
-                           house_points=house_points,
-                           house_of_week=house_of_week,
-                           house_mottos=house_mottos)
+    return render_template(
+        "dashboard.html",
+        username=username,
+        role=role,
+        avatar=avatar,
+        user=users[username],
+        house_points=house_points,
+        house_of_week=house_of_week,
+        house_mottos=house_mottos
+    )
 
+# -----------------------------
+# PROFILE PAGE
+# -----------------------------
 @app.route("/profile/<username>/<role>/<avatar>")
 def profile(username, role, avatar):
     return render_template("profile.html",
@@ -102,6 +114,9 @@ def profile(username, role, avatar):
                            avatar=avatar,
                            user=users[username])
 
+# -----------------------------
+# QUIZ GAME
+# -----------------------------
 @app.route("/quiz/<username>/<role>/<avatar>", methods=["GET", "POST"])
 def quiz(username, role, avatar):
     if "quiz_index" not in session:
@@ -117,6 +132,7 @@ def quiz(username, role, avatar):
     if index >= len(session["quiz_order"]):
         final_score = score
 
+        # Award badge
         if final_score == 3:
             users[username]["badge"] = "Gold"
         elif final_score == 2:
@@ -126,9 +142,11 @@ def quiz(username, role, avatar):
         else:
             users[username]["badge"] = "None"
 
+        # Update high score
         if final_score > users[username]["high_score"]:
             users[username]["high_score"] = final_score
 
+        # Reset session
         session.pop("quiz_index")
         session.pop("score")
         session.pop("quiz_order")
@@ -146,10 +164,6 @@ def quiz(username, role, avatar):
         user_answer = request.form["answer"]
         if user_answer == question["answer"]:
             session["score"] += 1
-            message = "Correct! 🎉"
-        else:
-            message = "Oops, try again!"
-
         session["quiz_index"] += 1
         return redirect(url_for("quiz", username=username, role=role, avatar=avatar))
 
@@ -160,6 +174,9 @@ def quiz(username, role, avatar):
                            role=role,
                            avatar=avatar)
 
+# -----------------------------
+# LEADERBOARD
+# -----------------------------
 @app.route("/leaderboard/<username>/<role>/<avatar>")
 def leaderboard(username, role, avatar):
     leaderboard_data = []
@@ -169,7 +186,7 @@ def leaderboard(username, role, avatar):
             "badge": data.get("badge", "None"),
             "high_score": data.get("high_score", 0),
             "avatar": data.get("avatar", "default.png"),
-            "house": data.get("house", "red")  # default if missing
+            "house": data.get("house", "red")
         })
 
     leaderboard_data.sort(key=lambda x: x["high_score"], reverse=True)
@@ -179,58 +196,42 @@ def leaderboard(username, role, avatar):
                            username=username,
                            role=role,
                            avatar=avatar)
+
 # -----------------------------
 # PLACEHOLDER PAGES
 # -----------------------------
-
 @app.route("/announcements/<username>/<role>/<avatar>")
 def announcements(username, role, avatar):
     return render_template("announcements.html",
-                           username=username,
-                           role=role,
-                           avatar=avatar)
+                           username=username, role=role, avatar=avatar)
 
 @app.route("/grades/<username>/<role>/<avatar>")
 def grades(username, role, avatar):
     return render_template("grades.html",
-                           username=username,
-                           role=role,
-                           avatar=avatar)
+                           username=username, role=role, avatar=avatar)
 
 @app.route("/upload-homework/<username>/<role>/<avatar>")
 def upload_homework(username, role, avatar):
     return render_template("upload_homework.html",
-                           username=username,
-                           role=role,
-                           avatar=avatar)
+                           username=username, role=role, avatar=avatar)
 
 @app.route("/add-announcement/<username>/<role>/<avatar>")
 def add_announcement(username, role, avatar):
     return render_template("add_announcement.html",
-                           username=username,
-                           role=role,
-                           avatar=avatar)
+                           username=username, role=role, avatar=avatar)
 
 @app.route("/add-grade/<username>/<role>/<avatar>")
 def add_grade(username, role, avatar):
     return render_template("add_grade.html",
-                           username=username,
-                           role=role,
-                           avatar=avatar)
+                           username=username, role=role, avatar=avatar)
 
 @app.route("/calendar/<username>/<role>/<avatar>")
 def calendar_page(username, role, avatar):
     return render_template("calendar.html",
-                           username=username,
-                           role=role,
-                           avatar=avatar)
+                           username=username, role=role, avatar=avatar)
+
+# -----------------------------
+# RUN APP
+# -----------------------------
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-
-
-
-
