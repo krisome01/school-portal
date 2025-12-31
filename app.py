@@ -140,27 +140,60 @@ def upload_homework(username, role, avatar):
         "answer": "12"
     }
 ]
+quiz_questions = [
+    {
+        "text": "What is 5 + 7?",
+        "options": ["10", "11", "12", "13"],
+        "answer": "12"
+    },
+    {
+        "text": "Which planet is known as the Red Planet?",
+        "options": ["Earth", "Mars", "Jupiter", "Venus"],
+        "answer": "Mars"
+    },
+    {
+        "text": "What is the capital of France?",
+        "options": ["Berlin", "Madrid", "Paris", "Rome"],
+        "answer": "Paris"
+    }
+]
 
 @app.route("/quiz/<username>/<role>/<avatar>", methods=["GET", "POST"])
 def quiz(username, role, avatar):
-    question = quiz_questions[0]
+    if "quiz_index" not in session:
+        session["quiz_index"] = 0
+        session["score"] = 0
+
+    index = session["quiz_index"]
+    score = session["score"]
     message = ""
+
+    if index >= len(quiz_questions):
+        final_score = score
+        session.pop("quiz_index")
+        session.pop("score")
+        return render_template("quiz_result.html", score=final_score,
+                               username=username, role=role, avatar=avatar)
+
+    question = quiz_questions[index]
 
     if request.method == "POST":
         user_answer = request.form["answer"]
         if user_answer == question["answer"]:
+            session["score"] += 1
             message = "Correct! 🎉"
         else:
             message = "Oops, try again!"
 
-    return render_template("quiz.html",
-                           username=username,
-                           role=role,
-                           avatar=avatar,
-                           question=question,
-                           message=message)
+        session["quiz_index"] += 1
+        return redirect(url_for("quiz", username=username, role=role, avatar=avatar))
+
+    return render_template("quiz.html", question=question, message=message,
+                           username=username, role=role, avatar=avatar)
+
     
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
