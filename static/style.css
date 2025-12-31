@@ -93,7 +93,45 @@ input[type="submit"] {
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid #4a90e2;
-}    
+}   
+ 
+/* Avatar wrapper */
+.avatar-wrapper {
+    position: relative;
+    width: 90px;
+    margin: 0 auto 20px auto;
+}
+
+/* Avatar image */
+.avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #4a90e2; /* default student colour */
+}
+
+/* Student border */
+.avatar.student {
+    border-color: #4a90e2; /* blue */
+}
+
+/* Teacher border */
+.avatar.teacher {
+    border-color: #e67e22; /* orange */
+}
+
+/* Badge */
+.role-badge {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background: white;
+    border-radius: 50%;
+    padding: 4px 6px;
+    font-size: 18px;
+    border: 2px solid #ccc;
+}   
 }
 
 .teacher-btn:hover {
