@@ -97,7 +97,20 @@ def set_avatar(username, role, new_avatar):
     users[username]["avatar"] = new_avatar
     return redirect(f"/profile/{username}/{role}/{new_avatar}")
 
+@app.route("/calendar/<username>/<role>/<avatar>")
+def calendar(username, role, avatar):
+    calendar_days = []
+
+    # Create 31 days for January
+    for i in range(1, 32):
+        day_str = f"January {i}"
+        events = [a for a in announcements_list if a["date"] == day_str]
+        calendar_days.append({"day": i, "events": events})
+
+    return render_template("calendar.html", calendar_days=calendar_days, username=username, role=role, avatar=avatar)
+
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
