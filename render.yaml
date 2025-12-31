@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: school-portal
+    env: python
+    buildCommand: ""
+    startCommand: "python app.py"
