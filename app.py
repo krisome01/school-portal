@@ -16,12 +16,13 @@ def allowed_file(filename):
     
 users = {
     "student1": {
-        "password": "password123",
-        "role": "student",
-        "avatar": "student1.png",
-        "badge": "None",
-        "high_score": 0
-    },
+       "password": "password123",
+       "role": "student",
+       "avatar": "student1.png",
+       "house": "red",
+       "badge": "None",
+       "high_score": 0
+}
     "teacher": {
         "password": "teach2025",
         "role": "teacher",
@@ -159,4 +160,5 @@ def leaderboard(username, role, avatar):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
