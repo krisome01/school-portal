@@ -22,18 +22,15 @@ users = {
 def home():
     return render_template("index.html")
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        username = request.form["username"]
+        username = request.form["user"]
         password = request.form["password"]
 
-        if username in users and users[username]["password"] == password:
-            role = users[username]["role"]
-            avatar = users[username]["avatar"]
-            return redirect(url_for("dashboard", username=username, role=role, avatar=avatar))
-        else:
-            return "<h1>Login failed</h1><p><a href='/login'>Try again</a></p>"
+        # Check credentials, redirect to dashboard
+        # Or show error message
 
     return render_template("login.html")
 
@@ -110,6 +107,7 @@ def calendar(username, role, avatar):
     return render_template("calendar.html", calendar_days=calendar_days, username=username, role=role, avatar=avatar)
 
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
