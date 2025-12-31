@@ -7,15 +7,13 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
 
-# Upload settings
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {"pdf", "docx", "txt", "png", "jpg"}
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
-
-# User data
+    
 users = {
     "student1": {
         "password": "password123",
@@ -33,7 +31,6 @@ users = {
     }
 }
 
-# Quiz questions
 quiz_questions = [
     {
         "text": "What is 5 + 7?",
@@ -51,10 +48,9 @@ quiz_questions = [
         "answer": "Paris"
     }
 ]
-
-# Login route (simplified)
 @app.route("/", methods=["GET", "POST"])
 def login():
+    message=""
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -66,11 +62,9 @@ def login():
                                     role=user["role"],
                                     avatar=user["avatar"]))
         else:
-            return "Invalid credentials"
+            message= "Oops! That username or password didn't match. Try again?"
+            return render_template("login.html",message=message)
 
-    return render_template("login.html")
-
-# Dashboard route
 @app.route("/dashboard/<username>/<role>/<avatar>")
 def dashboard(username, role, avatar):
     return render_template("dashboard.html",
@@ -78,7 +72,6 @@ def dashboard(username, role, avatar):
                            role=role,
                            avatar=avatar)
 
-# Profile route
 @app.route("/profile/<username>/<role>/<avatar>")
 def profile(username, role, avatar):
     return render_template("profile.html",
@@ -87,7 +80,6 @@ def profile(username, role, avatar):
                            avatar=avatar,
                            user=users[username])
 
-# Quiz route
 @app.route("/quiz/<username>/<role>/<avatar>", methods=["GET", "POST"])
 def quiz(username, role, avatar):
     if "quiz_index" not in session:
@@ -103,7 +95,6 @@ def quiz(username, role, avatar):
     if index >= len(session["quiz_order"]):
         final_score = score
 
-        # Assign badge
         if final_score == 3:
             users[username]["badge"] = "Gold"
         elif final_score == 2:
@@ -113,7 +104,6 @@ def quiz(username, role, avatar):
         else:
             users[username]["badge"] = "None"
 
-        # Update high score
         if final_score > users[username]["high_score"]:
             users[username]["high_score"] = final_score
 
@@ -148,7 +138,6 @@ def quiz(username, role, avatar):
                            role=role,
                            avatar=avatar)
 
-# Leaderboard route
 @app.route("/leaderboard/<username>/<role>/<avatar>")
 def leaderboard(username, role, avatar):
     leaderboard_data = []
@@ -168,6 +157,6 @@ def leaderboard(username, role, avatar):
                            role=role,
                            avatar=avatar)
 
-# Optional for local testing
 if __name__ == "__main__":
     app.run(debug=True)
+
