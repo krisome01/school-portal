@@ -1,3 +1,4 @@
+import random
 import json
 import os
 from flask import Flask, render_template, request, redirect, url_for, session
@@ -194,6 +195,7 @@ def quiz(username, role, avatar):
 
     
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
