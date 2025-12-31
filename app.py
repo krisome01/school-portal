@@ -29,8 +29,9 @@ def login():
         password = request.form["password"]
 
         if username in users and users[username]["password"] == password:
-    role = users[username]["role"]
-    return redirect(url_for("dashboard", username=username, role=role))
+            role = users[username]["role"]
+            avatar = users[username]["avatar"]
+            return redirect(url_for("dashboard", username=username, role=role, avatar=avatar))
         else:
             return "<h1>Login failed</h1><p><a href='/login'>Try again</a></p>"
 
@@ -79,6 +80,7 @@ def logout():
     return redirect(url_for("home"))
 
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
