@@ -22,7 +22,7 @@ users = {
        "house": "red",
        "badge": "None",
        "high_score": 0
-}
+},
     "teacher": {
         "password": "teach2025",
         "role": "teacher",
@@ -161,6 +161,7 @@ def leaderboard(username, role, avatar):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
