@@ -80,6 +80,20 @@ input[type="submit"] {
 
 .teacher-btn {
     background: #e67e22;
+
+.avatar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #4a90e2;
+}    
 }
 
 .teacher-btn:hover {
