@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>🎉 Quiz Complete!</h1>
+<p>Your final score: {{ score }} out of 3</p>
+
+{% if score == 3 %}
+    <p class="badge">🏅 Perfect Score! You earned the Gold Badge!</p>
+{% elif score == 2 %}
+    <p class="badge">🥈 Great job! You earned the Silver Badge!</p>
+{% elif score == 1 %}
+    <p class="badge">🥉 Nice try! You earned the Bronze Badge!</p>
+{% else %}
+    <p class="badge">📘 Keep practicing! You’ll earn a badge next time!</p>
+{% endif %}
+
+<a class="dash-btn" href="/dashboard/{{ username }}/{{ role }}/{{ avatar }}">
+    🔙 Back to Dashboard
+</a>
+
+{% endblock %}
