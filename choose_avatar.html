@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1 class="page-title">Choose Your Avatar</h1>
+
+<div class="avatar-grid">
+    {% for img in avatars %}
+        <a href="/set-avatar/{{ username }}/{{ role }}/{{ img }}">
+            <img src="{{ url_for('static', filename=img) }}" class="avatar-option">
+        </a>
+    {% endfor %}
+</div>
+
+{% endblock %}
