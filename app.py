@@ -37,9 +37,9 @@ def login():
 
     return render_template("login.html")
 
-@app.route("/dashboard/<username>")
-def dashboard(username):
-    return render_template("dashboard.html", username=username, title="Dashboard")
+@app.route("/dashboard/<username>/<role>/<avatar>")
+def dashboard(username, role, avatar):
+    return render_template("dashboard.html", username=username, role=role, avatar=avatar)
 
 announcements_list = [
     {"date": "January 6", "emoji": "📅", "text": "School reopens"},
@@ -80,6 +80,7 @@ def logout():
     return redirect(url_for("home"))
 
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
