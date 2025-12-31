@@ -242,6 +242,8 @@ def leaderboard(username, role, avatar):
 
     
 # REMOVE app.run() — Render will run the app using gunicorn
+if __name__ == "__main__":
+    app.run(debug=True)
 
 
 
