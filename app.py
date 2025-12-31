@@ -1,24 +1,21 @@
+import os
+import json
+import random
 from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.utils import secure_filename
-import os
-import random
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
 
+# Upload settings
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {"pdf", "docx", "txt", "png", "jpg"}
-
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
-from flask import Flask, render_template, request, redirect, url_for
-
-app = Flask(__name__)
-app.secret_key = "your_secret_key"
-
+# User data
 users = {
     "student1": {
         "password": "password123",
@@ -36,118 +33,7 @@ users = {
     }
 }
 
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        username = request.form["user"]
-        password = request.form["password"]
-
-        # Check credentials, redirect to dashboard
-        # Or show error message
-
-    return render_template("login.html")
-
-@app.route("/dashboard/<username>/<role>/<avatar>")
-def dashboard(username, role, avatar):
-    return render_template("dashboard.html", username=username, role=role, avatar=avatar)
-
-announcements_list = [
-    {"date": "January 6", "emoji": "📅", "text": "School reopens"},
-    {"date": "February 12", "emoji": "📝", "text": "Mock exams start"},
-    {"date": "March 3", "emoji": "👨‍👩‍👧", "text": "Year 7 Parents Evening"}
-]
-
-@app.route("/announcements/<username>/<role>/<avatar>", methods=["GET", "POST"])
-def announcements(username, role, avatar):
-    if request.method == "POST":
-        date = request.form["date"]
-        emoji = request.form["emoji"]
-        text = request.form["text"]
-
-        announcements_list.append({
-            "date": date,
-            "emoji": emoji,
-            "text": text
-        })
-
-    return render_template(
-        "announcements.html",
-        announcements=announcements_list,
-        title="Announcements",
-        username=username,
-        role=role,
-        avatar=avatar
-    )
-
-@app.route("/grades/<username>/<role>/<avatar>")
-def grades(username, role, avatar):
-    return render_template("grades.html", title="Grades", username=username, role=role, avatar=avatar)
-
-@app.route("/profile/<username>/<role>/<avatar>")
-def profile(username, role, avatar):
-    return render_template("profile.html", username=username, role=role, avatar=avatar)
-
-@app.route("/logout")
-def logout():
-    return redirect(url_for("home"))
-
-@app.route("/choose-avatar/<username>/<role>/<avatar>")
-def choose_avatar(username, role, avatar):
-    avatars = [
-        "student1.png",
-        "student2.png",
-        "student3.png",
-        "teacher1.png",
-        "teacher2.png"
-    ]
-    return render_template("choose_avatar.html", avatars=avatars, username=username, role=role, avatar=avatar)
-
-@app.route("/set-avatar/<username>/<role>/<new_avatar>")
-def set_avatar(username, role, new_avatar):
-    users[username]["avatar"] = new_avatar
-    return redirect(f"/profile/{username}/{role}/{new_avatar}")
-
-@app.route("/calendar/<username>/<role>/<avatar>")
-def calendar(username, role, avatar):
-    calendar_days = []
-
-    # Create 31 days for January
-    for i in range(1, 32):
-        day_str = f"January {i}"
-        events = [a for a in announcements_list if a["date"] == day_str]
-        calendar_days.append({"day": i, "events": events})
-
-    return render_template("calendar.html", calendar_days=calendar_days, username=username, role=role, avatar=avatar)
-
-@app.route("/upload-homework/<username>/<role>/<avatar>", methods=["GET", "POST"])
-def upload_homework(username, role, avatar):
-    message = ""
-
-    if role != "student":
-        return "Access denied", 403
-
-    if request.method == "POST":
-        file = request.files["file"]
-        if file and allowed_file(file.filename):
-            filename = secure_filename(f"{username}_{file.filename}")
-            file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-            message = "Homework uploaded successfully!"
-
-    return render_template("upload_homework.html",
-                           username=username, role=role, avatar=avatar,
-                           message=message)
-    quiz_questions = [
-    {
-        "text": "What is 5 + 7?",
-        "options": ["10", "11", "12", "13"],
-        "answer": "12"
-    }
-]
+# Quiz questions
 quiz_questions = [
     {
         "text": "What is 5 + 7?",
@@ -166,13 +52,47 @@ quiz_questions = [
     }
 ]
 
+# Login route (simplified)
+@app.route("/", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        user = users.get(username)
+
+        if user and user["password"] == password:
+            return redirect(url_for("dashboard",
+                                    username=username,
+                                    role=user["role"],
+                                    avatar=user["avatar"]))
+        else:
+            return "Invalid credentials"
+
+    return render_template("login.html")
+
+# Dashboard route
+@app.route("/dashboard/<username>/<role>/<avatar>")
+def dashboard(username, role, avatar):
+    return render_template("dashboard.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar)
+
+# Profile route
+@app.route("/profile/<username>/<role>/<avatar>")
+def profile(username, role, avatar):
+    return render_template("profile.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           user=users[username])
+
+# Quiz route
 @app.route("/quiz/<username>/<role>/<avatar>", methods=["GET", "POST"])
 def quiz(username, role, avatar):
     if "quiz_index" not in session:
         session["quiz_index"] = 0
         session["score"] = 0
-
-        # Shuffle questions once per quiz
         shuffled = quiz_questions.copy()
         random.shuffle(shuffled)
         session["quiz_order"] = shuffled
@@ -180,7 +100,6 @@ def quiz(username, role, avatar):
     index = session["quiz_index"]
     score = session["score"]
 
-    # End of quiz
     if index >= len(session["quiz_order"]):
         final_score = score
 
@@ -198,15 +117,16 @@ def quiz(username, role, avatar):
         if final_score > users[username]["high_score"]:
             users[username]["high_score"] = final_score
 
-        # Clear session
         session.pop("quiz_index")
         session.pop("score")
         session.pop("quiz_order")
 
-        return render_template("quiz_result.html", score=final_score,
-                               username=username, role=role, avatar=avatar)
+        return render_template("quiz_result.html",
+                               score=final_score,
+                               username=username,
+                               role=role,
+                               avatar=avatar)
 
-    # Show current question
     question = session["quiz_order"][index]
     message = ""
 
@@ -221,9 +141,14 @@ def quiz(username, role, avatar):
         session["quiz_index"] += 1
         return redirect(url_for("quiz", username=username, role=role, avatar=avatar))
 
-    return render_template("quiz.html", question=question, message=message,
-                           username=username, role=role, avatar=avatar)
-    
+    return render_template("quiz.html",
+                           question=question,
+                           message=message,
+                           username=username,
+                           role=role,
+                           avatar=avatar)
+
+# Leaderboard route
 @app.route("/leaderboard/<username>/<role>/<avatar>")
 def leaderboard(username, role, avatar):
     leaderboard_data = []
@@ -234,36 +159,15 @@ def leaderboard(username, role, avatar):
             "high_score": data.get("high_score", 0),
             "avatar": data.get("avatar", "default.png")
         })
+
     leaderboard_data.sort(key=lambda x: x["high_score"], reverse=True)
+
     return render_template("leaderboard.html",
                            leaderboard=leaderboard_data,
-                           username=username, role=role, avatar=avatar)
+                           username=username,
+                           role=role,
+                           avatar=avatar)
 
-    
-# REMOVE app.run() — Render will run the app using gunicorn
+# Optional for local testing
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
