@@ -28,14 +28,31 @@ def login():
 def dashboard(username):
     return render_template("dashboard.html", username=username, title="Dashboard")
 
-@app.route("/announcements")
+announcements_list = [
+    {"date": "January 6", "emoji": "📅", "text": "School reopens"},
+    {"date": "February 12", "emoji": "📝", "text": "Mock exams start"},
+    {"date": "March 3", "emoji": "👨‍👩‍👧", "text": "Year 7 Parents Evening"}
+]
+
+@app.route("/announcements", methods=["GET", "POST"])
 def announcements():
-    announcements = [
-        {"date": "January 6", "emoji": "📅", "text": "School reopens"},
-        {"date": "February 12", "emoji": "📝", "text": "Mock exams start"},
-        {"date": "March 3", "emoji": "👨‍👩‍👧", "text": "Year 7 Parents Evening"}
-    ]
-    return render_template("announcements.html", announcements=announcements, title="Announcements", username="student1")
+    if request.method == "POST":
+        date = request.form["date"]
+        emoji = request.form["emoji"]
+        text = request.form["text"]
+
+        announcements_list.append({
+            "date": date,
+            "emoji": emoji,
+            "text": text
+        })
+
+    return render_template(
+        "announcements.html",
+        announcements=announcements_list,
+        title="Announcements",
+        username="student1"  # You can make this dynamic later
+    )
 
 @app.route("/grades")
 def grades():
@@ -50,4 +67,5 @@ def logout():
     return redirect(url_for("home"))
 
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
