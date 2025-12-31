@@ -115,6 +115,7 @@ def calendar(username, role, avatar):
         calendar_days.append({"day": i, "events": events})
 
     return render_template("calendar.html", calendar_days=calendar_days, username=username, role=role, avatar=avatar)
+
 @app.route("/upload-homework/<username>/<role>/<avatar>", methods=["GET", "POST"])
 def upload_homework(username, role, avatar):
     message = ""
@@ -132,7 +133,35 @@ def upload_homework(username, role, avatar):
     return render_template("upload_homework.html",
                            username=username, role=role, avatar=avatar,
                            message=message)
+    quiz_questions = [
+    {
+        "text": "What is 5 + 7?",
+        "options": ["10", "11", "12", "13"],
+        "answer": "12"
+    }
+]
+
+@app.route("/quiz/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def quiz(username, role, avatar):
+    question = quiz_questions[0]
+    message = ""
+
+    if request.method == "POST":
+        user_answer = request.form["answer"]
+        if user_answer == question["answer"]:
+            message = "Correct! 🎉"
+        else:
+            message = "Oops, try again!"
+
+    return render_template("quiz.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           question=question,
+                           message=message)
+    
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
