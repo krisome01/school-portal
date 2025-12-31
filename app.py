@@ -1,5 +1,15 @@
 import json
 import os
+import os
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = "uploads"
+ALLOWED_EXTENSIONS = {"pdf", "docx", "txt", "png", "jpg"}
+
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 from flask import Flask, render_template, request, redirect, url_for
 
@@ -105,8 +115,25 @@ def calendar(username, role, avatar):
         calendar_days.append({"day": i, "events": events})
 
     return render_template("calendar.html", calendar_days=calendar_days, username=username, role=role, avatar=avatar)
+@app.route("/upload-homework/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def upload_homework(username, role, avatar):
+    message = ""
 
+    if role != "student":
+        return "Access denied", 403
+
+    if request.method == "POST":
+        file = request.files["file"]
+        if file and allowed_file(file.filename):
+            filename = secure_filename(f"{username}_{file.filename}")
+            file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+            message = "Homework uploaded successfully!"
+
+    return render_template("upload_homework.html",
+                           username=username, role=role, avatar=avatar,
+                           message=message)
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
