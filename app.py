@@ -1,8 +1,10 @@
-import random
-import json
-import os
 from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.utils import secure_filename
+import os
+import random
+
+app = Flask(__name__)
+app.secret_key = "your_secret_key"
 
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {"pdf", "docx", "txt", "png", "jpg"}
@@ -241,6 +243,7 @@ def leaderboard(username, role, avatar):
 # REMOVE app.run() — Render will run the app using gunicorn
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
