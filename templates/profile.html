@@ -1,10 +1,56 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>Your Profile</h1>
+<div class="profile-container">
 
-<p><strong>Name:</strong> {{ username }}</p>
-<p><strong>Year Group:</strong> 10</p>
-<p><strong>Form:</strong> 10B</p>
+    <!-- Avatar + Badge -->
+    <div class="avatar-wrapper">
+        <img src="{{ url_for('static', filename=avatar) }}" class="avatar {{ role }}">
+        <span class="role-badge">
+            {% if role == "student" %}🎓{% else %}⭐{% endif %}
+        </span>
+    </div>
+
+    <h1 class="profile-name">{{ username }}</h1>
+    <p class="profile-role">
+        {% if role == "student" %}
+            Student Account
+        {% else %}
+            Teacher Account
+        {% endif %}
+    </p>
+
+    <!-- Profile Card -->
+    <div class="profile-card">
+
+        <h2 class="section-title">Account Details</h2>
+
+        <div class="info-row">
+            <span class="info-label">Username:</span>
+            <span class="info-value">{{ username }}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Role:</span>
+            <span class="info-value">{{ role }}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Member Since:</span>
+            <span class="info-value">2025</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Status:</span>
+            <span class="info-value active">Active</span>
+        </div>
+
+        <a class="change-avatar-btn" href="#">
+            Change Avatar (coming soon)
+        </a>
+
+    </div>
+
+</div>
 
 {% endblock %}
