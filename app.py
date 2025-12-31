@@ -44,4 +44,4 @@ def profile(username):
 def logout():
     return redirect(url_for("home"))
 
-app.run(debug=True)
+# REMOVE app.run() — Render will run the app using gunicorn
