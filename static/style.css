@@ -505,3 +505,61 @@ button {
     0% { transform: scale(0.8); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
+/* HOUSE COLOURS */
+.house-red {
+    background: linear-gradient(135deg, #ff9a9e, #e74c3c);
+    border-left: 8px solid #c0392b;
+}
+
+.house-blue {
+    background: linear-gradient(135deg, #a1c4fd, #3498db);
+    border-left: 8px solid #2980b9;
+}
+
+.house-green {
+    background: linear-gradient(135deg, #b8f2c8, #2ecc71);
+    border-left: 8px solid #27ae60;
+}
+
+.house-yellow {
+    background: linear-gradient(135deg, #fceabb, #f1c40f);
+    border-left: 8px solid #d4ac0d;
+}
+
+/* HOUSE BADGES */
+.house-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: white;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.house-badge.red { background: #e74c3c; }
+.house-badge.blue { background: #3498db; }
+.house-badge.green { background: #2ecc71; }
+.house-badge.yellow { background: #f1c40f; color: black; }
+
+/* HOUSE POINTS DISPLAY */
+.points-box {
+    padding: 15px;
+    border-radius: 12px;
+    margin: 15px 0;
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* ANIMATION */
+.house-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+}
