@@ -1,511 +1,105 @@
+/* ------------------------------
+   GLOBAL STYLES
+--------------------------------*/
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f4f8;
     margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #ffecd2, #fcb69f);
+    min-height: 100vh;
+}
+
+/* Page wrapper */
+.content-wrapper {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
     padding: 20px;
 }
 
-h1 {
-    color: #2c3e50;
-}
-
-a {
-    color: #2980b9;
-    text-decoration: none;
-}
-
-form {
-    background: white;
+/* ------------------------------
+   HEADER + FOOTER
+--------------------------------*/
+.main-header {
+    background: #2c3e50;
     padding: 20px;
-    border-radius: 8px;
-    max-width: 300px;
-    margin-top: 20px;
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    margin: 6px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-input[type="submit"] {
-    background-color: #2980b9;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.dashboard-container {
     text-align: center;
-    padding: 40px;
+    color: white;
 }
 
-.welcome {
-    font-size: 2.2rem;
-    margin-bottom: 10px;
+.portal-title {
+    margin: 0;
+    font-size: 2rem;
 }
 
-.subtitle {
-    font-size: 1.2rem;
+.main-footer {
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
     color: #555;
-    margin-bottom: 30px;
 }
 
-.dashboard-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 300px;
-    margin: 0 auto;
-}
-
-.dash-btn {
-    display: block;
-    padding: 12px 20px;
-    background: #4a90e2;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    transition: 0.2s;
-}
-
-.dash-btn:hover {
-    background: #357ABD;
-}
-
-.teacher-btn {
-    background: #e67e22;
-
-.avatar-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
+/* ------------------------------
+   AVATARS
+--------------------------------*/
 .avatar {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #4a90e2;
-}   
- 
-/* Avatar wrapper */
-.avatar-wrapper {
-    position: relative;
-    width: 90px;
-    margin: 0 auto 20px auto;
+    border: 4px solid white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-/* Avatar image */
-.avatar {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #4a90e2; /* default student colour */
-}
-
-/* Student border */
-.avatar.student {
-    border-color: #4a90e2; /* blue */
-}
-
-/* Teacher border */
-.avatar.teacher {
-    border-color: #e67e22; /* orange */
-}
-
-/* Badge */
-.role-badge {
-    position: absolute;
-    bottom: -5px;
-    right: -5px;
-    background: white;
-    border-radius: 50%;
-    padding: 4px 6px;
-    font-size: 18px;
-    border: 2px solid #ccc;
-}   
-}
-
-.teacher-btn:hover {
-    background: #cf6d17;
-}
-/* Profile Page Layout */
-.profile-container {
-    max-width: 500px;
-    margin: 0 auto;
-    text-align: center;
-    padding: 20px;
-}
-
-/* Avatar Wrapper */
-.avatar-wrapper {
-    position: relative;
-    width: 120px;
-    margin: 0 auto 15px auto;
-}
-
-.avatar {
+.avatar-large {
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    object-fit: cover;
-    border: 5px solid #4a90e2;
+    border: 5px solid white;
+    display: block;
+    margin: 0 auto 15px;
 }
 
-/* Role Colours */
-.avatar.student {
-    border-color: #4a90e2; /* blue */
+/* Avatar wrapper */
+.avatar-wrapper {
+    position: relative;
+    width: 80px;
+    margin: 0 auto;
 }
 
-.avatar.teacher {
-    border-color: #e67e22; /* orange */
-}
-
-/* Badge */
 .role-badge {
     position: absolute;
     bottom: -5px;
     right: -5px;
-    background: white;
+    background: gold;
+    padding: 5px 8px;
     border-radius: 50%;
-    padding: 5px 7px;
-    font-size: 20px;
-    border: 2px solid #ccc;
+    font-size: 1.2rem;
 }
 
-/* Name + Role */
-.profile-name {
-    font-size: 28px;
-    margin-bottom: 5px;
-}
-
-.profile-role {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 20px;
-}
-
-/* Profile Card */
-.profile-card {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    text-align: left;
-}
-
-.section-title {
-    font-size: 20px;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 5px;
-}
-
-/* Info Rows */
-.info-row {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-}
-
-.info-label {
-    font-weight: bold;
-    color: #444;
-}
-
-.info-value {
-    color: #333;
-}
-
-.info-value.active {
-    color: #2ecc71;
-    font-weight: bold;
-}
-
-/* Button */
-.change-avatar-btn {
-    display: block;
-    margin-top: 20px;
-    text-align: center;
-    background: #4a90e2;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: 0.2s;
-}
-
-.change-avatar-btn:hover {
-    background: #357ABD;
-}
-.page-title {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.avatar-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.avatar-option {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid transparent;
-    transition: 0.2s;
-    cursor: pointer;
-}
-
-.avatar-option:hover {
-    border-color: #4a90e2;
-    transform: scale(1.05);
-}
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-    margin: 20px auto;
-    max-width: 700px;
-}
-
-.calendar-cell {
-    background: #f9f9f9;
-    border-radius: 8px;
-    padding: 10px;
-    min-height: 100px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.day-number {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.calendar-event {
-    font-size: 14px;
-    margin: 2px 0;
-}
-.profile-form {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.profile-form input,
-.profile-form textarea {
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-}
-
-.profile-form button {
-    background: #4a90e2;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.profile-form button:hover {
-    background: #357ABD;
-}
-.login-container {
-    max-width: 400px;
-    margin: 100px auto;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.login-container input[type="text"],
-.login-container input[type="password"] {
-    width: 80%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-.login-container input[type="submit"] {
-    background: #4a90e2;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-/* 📱 Mobile layout */
-@media (max-width: 600px) {
-  .dashboard-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-   .leaderboard-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.leaderboard-table th, .leaderboard-table td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-}
-
-.lb-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-} 
-
-  .dash-btn {
-    font-size: 16px;
-    padding: 10px;
-  }
-
-  .avatar {
-    width: 80px;
-    height: 80px;
-  }
-}
-
-/* ✨ Button hover animation */
+/* ------------------------------
+   BUTTONS
+--------------------------------*/
 .dash-btn {
-  transition: transform 0.2s, background 0.2s;
-}
-
-.dash-btn:hover {
-  transform: scale(1.03);
-  background-color: #357ABD;
-}
-
-/* 🎨 Avatar styling */
-.avatar {
-  border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-}
-
-.avatar:hover {
-  transform: scale(1.05);
-}
-.badge {
-    font-size: 20px;
-    font-weight: bold;
-    color: #2c3e50;
-    background: #eaf4fc;
-    padding: 12px;
-    border-radius: 10px;
-    text-align: center;
-    margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.error-message {
-    color: #c0392b;
-    background: #fdecea;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    font-weight: bold;
-    text-align: center;
-}
-body {
-    background: linear-gradient(135deg, #ffecd2, #fcb69f);
-    font-family: "Poppins", sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-h1, h2, h3 {
-    color: #2c3e50;
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-button, input[type="submit"] {
+    display: block;
     background: #ff6b6b;
     color: white;
-    border: none;
     padding: 12px 20px;
+    margin: 10px 0;
     border-radius: 10px;
-    cursor: pointer;
-    font-size: 1rem;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1.1rem;
     transition: 0.3s;
 }
 
-button:hover, input[type="submit"]:hover {
+.dash-btn:hover {
     background: #ff4757;
     transform: scale(1.05);
 }
 
-.login-container, .dashboard-card, .quiz-box {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    margin: 20px auto;
-    width: 90%;
-    max-width: 450px;
-}
-.avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 4px solid #ff6b6b;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.badge {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-weight: bold;
-    color: white;
-}
-
-.badge-gold { background: #f1c40f; }
-.badge-silver { background: #bdc3c7; }
-.badge-bronze { background: #cd7f32; }
-.fade-in {
-    animation: fadeIn 0.8s ease forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-button {
-    animation: popIn 0.4s ease;
-}
-
-@keyframes popIn {
-    0% { transform: scale(0.8); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-/* HOUSE COLOURS */
+/* ------------------------------
+   HOUSE COLOURS
+--------------------------------*/
 .house-red {
     background: linear-gradient(135deg, #ff9a9e, #e74c3c);
     border-left: 8px solid #c0392b;
@@ -526,7 +120,7 @@ button {
     border-left: 8px solid #d4ac0d;
 }
 
-/* HOUSE BADGES */
+/* House badges */
 .house-badge {
     padding: 6px 14px;
     border-radius: 20px;
@@ -541,19 +135,19 @@ button {
 .house-badge.green { background: #2ecc71; }
 .house-badge.yellow { background: #f1c40f; color: black; }
 
-/* HOUSE POINTS DISPLAY */
-.points-box {
-    padding: 15px;
-    border-radius: 12px;
-    margin: 15px 0;
+/* ------------------------------
+   DASHBOARD CARDS
+--------------------------------*/
+.dashboard-card {
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
     color: white;
-    font-size: 1.2rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     text-align: center;
-    font-weight: bold;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 
-/* ANIMATION */
+/* Floating animation */
 .house-float {
     animation: float 3s ease-in-out infinite;
 }
@@ -562,4 +156,58 @@ button {
     0% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
     100% { transform: translateY(0); }
+}
+
+/* ------------------------------
+   LEADERBOARD
+--------------------------------*/
+.leaderboard-container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.leaderboard-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    margin: 15px 0;
+    color: white;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.leaderboard-left {
+    margin-right: 15px;
+}
+
+.leaderboard-right h2 {
+    margin: 0;
+}
+
+.score {
+    font-size: 1.2rem;
+    margin-top: 5px;
+}
+
+/* Back button */
+.back-button a {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    background: #2c3e50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+/* ------------------------------
+   ANIMATIONS
+--------------------------------*/
+.fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
