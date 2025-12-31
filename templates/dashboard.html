@@ -1,8 +1,33 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>Welcome, {{ username }}!</h1>
+<div class="dashboard-container">
 
-<p>Select an option from the navigation bar.</p>
+    <h1 class="welcome">Welcome, {{ username }}!</h1>
+    <p class="subtitle">Choose an option below to get started.</p>
+
+    <div class="dashboard-buttons">
+
+        <a class="dash-btn" href="/announcements/{{ username }}/{{ role }}">
+            📢 Announcements
+        </a>
+
+        <a class="dash-btn" href="/grades/{{ username }}/{{ role }}">
+            📊 Your Grades
+        </a>
+
+        <a class="dash-btn" href="/profile/{{ username }}/{{ role }}">
+            👤 Your Profile
+        </a>
+
+        {% if role == "teacher" %}
+        <a class="dash-btn teacher-btn" href="/announcements/{{ username }}/{{ role }}">
+            ✏️ Manage Announcements
+        </a>
+        {% endif %}
+
+    </div>
+
+</div>
 
 {% endblock %}
