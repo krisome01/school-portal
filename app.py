@@ -1,6 +1,6 @@
 import json
 import os
-import os
+from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = "uploads"
@@ -14,6 +14,7 @@ def allowed_file(filename):
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
+app.secret_key = "your_secret_key"
 
 users = {
     "student1": {
@@ -193,6 +194,7 @@ def quiz(username, role, avatar):
 
     
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
