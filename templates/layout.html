@@ -8,8 +8,8 @@
 
     <nav class="navbar">
         <a href="/">Home</a>
-        <a href="/dashboard/{{ username }}">Dashboard</a>
-        <a href="/announcements">Announcements</a>
+        <a href="/dashboard/{{ username }}/{{ role }}">Dashboard</a>
+        <a href="/announcements/{{ username }}/{{ role }}">Announcements</a>
         <a href="/grades">Grades</a>
         <a href="/profile/{{ username }}">Profile</a>
         <a href="/logout">Logout</a>
@@ -20,4 +20,5 @@
     </div>
 
 </body>
+
 </html>
