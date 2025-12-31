@@ -71,16 +71,13 @@ def login():
 @app.route("/dashboard/<username>/<role>/<avatar>")
 def dashboard(username, role, avatar):
 
-    # Calculate house points
     house_points = {"red": 0, "blue": 0, "green": 0, "yellow": 0}
     for user, data in users.items():
         house = data.get("house")
         house_points[house] += data.get("high_score", 0)
 
-    # Determine house of the week
     house_of_week = max(house_points, key=house_points.get)
 
-    # House mottos
     house_mottos = {
         "red": "Courage, creativity, and heart.",
         "blue": "Wisdom, curiosity, and calm.",
@@ -185,6 +182,7 @@ def leaderboard(username, role, avatar):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
