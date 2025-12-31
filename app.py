@@ -51,7 +51,8 @@ quiz_questions = [
 ]
 @app.route("/", methods=["GET", "POST"])
 def login():
-    message=""
+    message = ""
+
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -63,8 +64,9 @@ def login():
                                     role=user["role"],
                                     avatar=user["avatar"]))
         else:
-            message= "Oops! That username or password didn't match. Try again?"
-            return render_template("login.html",message=message)
+            message = "Oops! That username or password didn't match. Try again?"
+    
+    return render_template("login.html", message=message)
 
 @app.route("/dashboard/<username>/<role>/<avatar>")
 def dashboard(username, role, avatar):
@@ -161,6 +163,7 @@ def leaderboard(username, role, avatar):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
