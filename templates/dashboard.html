@@ -23,10 +23,20 @@
 <a class="dash-btn" href="/profile/{{ username }}/{{ role }}/{{ avatar }}">
     👤 Your Profile
 </a>
+        {% if role == "teacher" %}
+    <a class="dash-btn" href="/add-announcement/{{ username }}/{{ role }}/{{ avatar }}">
+        ➕ Add Announcement
+    </a>
+
+    <a class="dash-btn" href="/add-grade/{{ username }}/{{ role }}/{{ avatar }}">
+        ➕ Add Grade
+    </a>
+{% endif %}
     </div>
 
 </div>
 
 {% endblock %}
+
 
 
