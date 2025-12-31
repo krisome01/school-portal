@@ -12,12 +12,21 @@
     <p class="subtitle">Choose an option below to get started.</p>
 
     <div class="dashboard-buttons">
-        <a class="dash-btn" href="/announcements/{{ username }}/{{ role }}">📢 Announcements</a>
-        <a class="dash-btn" href="/grades/{{ username }}/{{ role }}">📊 Your Grades</a>
-        <a class="dash-btn" href="/profile/{{ username }}/{{ role }}">👤 Your Profile</a>
+        <a class="dash-btn" href="/announcements/{{ username }}/{{ role }}/{{ avatar }}">
+    📢 Announcements
+</a>
+
+<a class="dash-btn" href="/grades/{{ username }}/{{ role }}/{{ avatar }}">
+    📊 Your Grades
+</a>
+
+<a class="dash-btn" href="/profile/{{ username }}/{{ role }}/{{ avatar }}">
+    👤 Your Profile
+</a>
     </div>
 
 </div>
 
 {% endblock %}
+
 
