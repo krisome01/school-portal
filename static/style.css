@@ -137,3 +137,112 @@ input[type="submit"] {
 .teacher-btn:hover {
     background: #cf6d17;
 }
+/* Profile Page Layout */
+.profile-container {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Avatar Wrapper */
+.avatar-wrapper {
+    position: relative;
+    width: 120px;
+    margin: 0 auto 15px auto;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #4a90e2;
+}
+
+/* Role Colours */
+.avatar.student {
+    border-color: #4a90e2; /* blue */
+}
+
+.avatar.teacher {
+    border-color: #e67e22; /* orange */
+}
+
+/* Badge */
+.role-badge {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background: white;
+    border-radius: 50%;
+    padding: 5px 7px;
+    font-size: 20px;
+    border: 2px solid #ccc;
+}
+
+/* Name + Role */
+.profile-name {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.profile-role {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Profile Card */
+.profile-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.section-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+}
+
+/* Info Rows */
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #444;
+}
+
+.info-value {
+    color: #333;
+}
+
+.info-value.active {
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+/* Button */
+.change-avatar-btn {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    background: #4a90e2;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.change-avatar-btn:hover {
+    background: #357ABD;
+}
