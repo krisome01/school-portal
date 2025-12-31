@@ -11,5 +11,19 @@
   {% endfor %}
 </ul>
 
+<h2>Add a New Announcement</h2>
+<form method="POST">
+    <label>Date:</label><br>
+    <input type="text" name="date" placeholder="e.g. April 10"><br><br>
+
+    <label>Emoji:</label><br>
+    <input type="text" name="emoji" placeholder="e.g. 🎒"><br><br>
+
+    <label>Announcement text:</label><br>
+    <input type="text" name="text" placeholder="e.g. Sports Day"><br><br>
+
+    <button type="submit">Add Announcement</button>
+</form>
+
 <p><a href="/dashboard/{{ username }}">← Back to Dashboard</a></p>
 {% endblock %}
