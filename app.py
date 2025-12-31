@@ -21,12 +21,16 @@ users = {
     "student1": {
         "password": "password123",
         "role": "student",
-        "avatar": "student1.png"
+        "avatar": "student1.png",
+        "badge": "None",
+        "high_score": 0
     },
     "teacher": {
         "password": "teach2025",
         "role": "teacher",
-        "avatar": "teacher.png"
+        "avatar": "teacher.png",
+        "badge": "None",
+        "high_score": 0
     }
 }
 
@@ -215,6 +219,7 @@ def quiz(username, role, avatar):
 
     
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
