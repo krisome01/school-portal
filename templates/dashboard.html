@@ -24,19 +24,23 @@
     👤 Your Profile
 </a>
         {% if role == "teacher" %}
-    <a class="dash-btn" href="/add-announcement/{{ username }}/{{ role }}/{{ avatar }}">
+<a class="dash-btn" href="/add-announcement/{{ username }}/{{ role }}/{{ avatar }}">
         ➕ Add Announcement
-    </a>
+ </a>
 
-    <a class="dash-btn" href="/add-grade/{{ username }}/{{ role }}/{{ avatar }}">
+ <a class="dash-btn" href="/add-grade/{{ username }}/{{ role }}/{{ avatar }}">
         ➕ Add Grade
-    </a>
+</a>
+<a class="dash-btn" href="/calendar/{{ username }}/{{ role }}/{{ avatar }}">
+    📅 Calendar
+</a>
 {% endif %}
     </div>
 
 </div>
 
 {% endblock %}
+
 
 
 
