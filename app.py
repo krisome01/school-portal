@@ -81,7 +81,24 @@ def profile(username, role, avatar):
 def logout():
     return redirect(url_for("home"))
 
+@app.route("/choose-avatar/<username>/<role>/<avatar>")
+def choose_avatar(username, role, avatar):
+    avatars = [
+        "student1.png",
+        "student2.png",
+        "student3.png",
+        "teacher1.png",
+        "teacher2.png"
+    ]
+    return render_template("choose_avatar.html", avatars=avatars, username=username, role=role, avatar=avatar)
+
+@app.route("/set-avatar/<username>/<role>/<new_avatar>")
+def set_avatar(username, role, new_avatar):
+    users[username]["avatar"] = new_avatar
+    return redirect(f"/profile/{username}/{role}/{new_avatar}")
+
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
