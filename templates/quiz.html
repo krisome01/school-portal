@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>🎮 Quiz Time!</h1>
+
+<form method="POST">
+    <p class="question">{{ question.text }}</p>
+
+    {% for option in question.options %}
+        <label>
+            <input type="radio" name="answer" value="{{ option }}" required>
+            {{ option }}
+        </label><br>
+    {% endfor %}
+
+    <button type="submit">Submit</button>
+
+    {% if message %}
+        <p class="message">{{ message }}</p>
+    {% endif %}
+</form>
+
+{% endblock %}
