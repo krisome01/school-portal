@@ -246,3 +246,30 @@ input[type="submit"] {
 .change-avatar-btn:hover {
     background: #357ABD;
 }
+.page-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.avatar-option {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid transparent;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.avatar-option:hover {
+    border-color: #4a90e2;
+    transform: scale(1.05);
+}
