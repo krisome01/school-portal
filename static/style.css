@@ -422,3 +422,12 @@ input[type="submit"] {
     margin-top: 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
+.error-message {
+    color: #c0392b;
+    background: #fdecea;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+}
