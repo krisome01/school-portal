@@ -47,8 +47,8 @@ announcements_list = [
     {"date": "March 3", "emoji": "👨‍👩‍👧", "text": "Year 7 Parents Evening"}
 ]
 
-@app.route("/announcements/<username>/<role>", methods=["GET", "POST"])
-def announcements(username, role):
+@app.route("/announcements/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def announcements(username, role, avatar):
     if request.method == "POST":
         date = request.form["date"]
         emoji = request.form["emoji"]
@@ -64,12 +64,14 @@ def announcements(username, role):
         "announcements.html",
         announcements=announcements_list,
         title="Announcements",
-        username="student1"  # You can make this dynamic later
+        username=username,
+        role=role,
+        avatar=avatar
     )
 
-@app.route("/grades")
-def grades():
-    return render_template("grades.html", title="Grades")
+@app.route("/grades/<username>/<role>/<avatar>")
+def grades(username, role, avatar):
+    return render_template("grades.html", title="Grades", username=username, role=role, avatar=avatar)
 
 @app.route("/profile/<username>/<role>/<avatar>")
 def profile(username, role, avatar):
@@ -80,6 +82,7 @@ def logout():
     return redirect(url_for("home"))
 
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
