@@ -359,6 +359,26 @@ input[type="submit"] {
     flex-direction: column;
     gap: 10px;
   }
+   .leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.leaderboard-table th, .leaderboard-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.lb-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+} 
 
   .dash-btn {
     font-size: 16px;
