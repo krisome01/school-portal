@@ -6,8 +6,16 @@ from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 
 users = {
-    "student1": {"password": "password123", "role": "student"},
-    "teacher": {"password": "teach2025", "role": "teacher"}
+    "student1": {
+        "password": "password123",
+        "role": "student",
+        "avatar": "student1.png"
+    },
+    "teacher": {
+        "password": "teach2025",
+        "role": "teacher",
+        "avatar": "teacher.png"
+    }
 }
 
 @app.route("/")
@@ -71,6 +79,7 @@ def logout():
     return redirect(url_for("home"))
 
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
