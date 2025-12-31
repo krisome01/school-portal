@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1 class="page-title">📅 School Calendar</h1>
+
+<div class="calendar-grid">
+    {% for day in calendar_days %}
+        <div class="calendar-cell">
+            <div class="day-number">{{ day.day }}</div>
+            {% for event in day.events %}
+                <div class="calendar-event">
+                    {{ event.emoji }} {{ event.text }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
