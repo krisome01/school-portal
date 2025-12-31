@@ -20,8 +20,9 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        if username in users and users[username] == password:
-            return redirect(url_for("dashboard", username=username))
+        if username in users and users[username]["password"] == password:
+    role = users[username]["role"]
+    return redirect(url_for("dashboard", username=username, role=role))
         else:
             return "<h1>Login failed</h1><p><a href='/login'>Try again</a></p>"
 
@@ -37,8 +38,8 @@ announcements_list = [
     {"date": "March 3", "emoji": "👨‍👩‍👧", "text": "Year 7 Parents Evening"}
 ]
 
-@app.route("/announcements", methods=["GET", "POST"])
-def announcements():
+@app.route("/announcements/<username>/<role>", methods=["GET", "POST"])
+def announcements(username, role):
     if request.method == "POST":
         date = request.form["date"]
         emoji = request.form["emoji"]
@@ -70,6 +71,7 @@ def logout():
     return redirect(url_for("home"))
 
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
