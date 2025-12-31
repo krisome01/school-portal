@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="leaderboard-container fade-in">
+
+        <h1>🏆 House Leaderboard</h1>
+        <p class="subtitle">Celebrating effort, progress, and magical learning</p>
+
+        {% for entry in leaderboard %}
+        <div class="leaderboard-card house-{{ entry.house }}">
+
+            <div class="leaderboard-left">
+                <img src="{{ url_for('static', filename=entry.avatar) }}" class="avatar">
+            </div>
+
+            <div class="leaderboard-right">
+                <h2>{{ entry.username }}</h2>
+
+                <span class="house-badge {{ entry.house }}">
+                    {{ entry.house|capitalize }} House
+                </span>
+
+                <p class="score">Points: {{ entry.high_score }}</p>
+
+                {% if entry.badge != "None" %}
+                <p class="earned-badge">Badge: {{ entry.badge }}</p>
+                {% endif %}
+            </div>
+
+        </div>
+        {% endfor %}
+
+        <div class="back-button">
+            <a href="{{ url_for('dashboard', username=username, role=role, avatar=avatar) }}">
+                ← Back to Dashboard
+            </a>
+        </div>
+
+    </div>
+</body>
+</html>
