@@ -222,11 +222,9 @@ def quiz(username, role, avatar):
     return render_template("quiz.html", question=question, message=message,
                            username=username, role=role, avatar=avatar)
     
-    @app.route("/leaderboard/<username>/<role>/<avatar>")
+@app.route("/leaderboard/<username>/<role>/<avatar>")
 def leaderboard(username, role, avatar):
-    # Convert users dict to a list for sorting
     leaderboard_data = []
-
     for user, data in users.items():
         leaderboard_data.append({
             "username": user,
@@ -234,10 +232,7 @@ def leaderboard(username, role, avatar):
             "high_score": data.get("high_score", 0),
             "avatar": data.get("avatar", "default.png")
         })
-
-    # Sort by high score (descending)
     leaderboard_data.sort(key=lambda x: x["high_score"], reverse=True)
-
     return render_template("leaderboard.html",
                            leaderboard=leaderboard_data,
                            username=username, role=role, avatar=avatar)
@@ -246,6 +241,7 @@ def leaderboard(username, role, avatar):
 # REMOVE app.run() — Render will run the app using gunicorn
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
