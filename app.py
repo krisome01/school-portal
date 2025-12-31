@@ -147,7 +147,8 @@ def leaderboard(username, role, avatar):
             "username": user,
             "badge": data.get("badge", "None"),
             "high_score": data.get("high_score", 0),
-            "avatar": data.get("avatar", "default.png")
+            "avatar": data.get("avatar", "default.png"),
+            "house": data.get("house", "red")  # default if missing
         })
 
     leaderboard_data.sort(key=lambda x: x["high_score"], reverse=True)
@@ -160,5 +161,6 @@ def leaderboard(username, role, avatar):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
