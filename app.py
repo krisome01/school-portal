@@ -179,9 +179,54 @@ def leaderboard(username, role, avatar):
                            username=username,
                            role=role,
                            avatar=avatar)
+# -----------------------------
+# PLACEHOLDER PAGES
+# -----------------------------
 
+@app.route("/announcements/<username>/<role>/<avatar>")
+def announcements(username, role, avatar):
+    return render_template("announcements.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar)
+
+@app.route("/grades/<username>/<role>/<avatar>")
+def grades(username, role, avatar):
+    return render_template("grades.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar)
+
+@app.route("/upload-homework/<username>/<role>/<avatar>")
+def upload_homework(username, role, avatar):
+    return render_template("upload_homework.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar)
+
+@app.route("/add-announcement/<username>/<role>/<avatar>")
+def add_announcement(username, role, avatar):
+    return render_template("add_announcement.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar)
+
+@app.route("/add-grade/<username>/<role>/<avatar>")
+def add_grade(username, role, avatar):
+    return render_template("add_grade.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar)
+
+@app.route("/calendar/<username>/<role>/<avatar>")
+def calendar_page(username, role, avatar):
+    return render_template("calendar.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar)
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
