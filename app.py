@@ -71,15 +71,16 @@ def announcements(username, role):
 def grades():
     return render_template("grades.html", title="Grades")
 
-@app.route("/profile/<username>")
-def profile(username):
-    return render_template("profile.html", username=username, title="Profile")
+@app.route("/profile/<username>/<role>/<avatar>")
+def profile(username, role, avatar):
+    return render_template("profile.html", username=username, role=role, avatar=avatar)
 
 @app.route("/logout")
 def logout():
     return redirect(url_for("home"))
 
 # REMOVE app.run() — Render will run the app using gunicorn
+
 
 
 
