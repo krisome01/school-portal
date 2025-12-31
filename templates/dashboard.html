@@ -23,6 +23,11 @@
 <a class="dash-btn" href="/profile/{{ username }}/{{ role }}/{{ avatar }}">
     👤 Your Profile
 </a>
+        {% if role == "student" %}
+    <a class="dash-btn" href="/upload-homework/{{ username }}/{{ role }}/{{ avatar }}">
+        📤 Submit Homework
+    </a>
+{% endif %}
         {% if role == "teacher" %}
 <a class="dash-btn" href="/add-announcement/{{ username }}/{{ role }}/{{ avatar }}">
         ➕ Add Announcement
@@ -40,6 +45,7 @@
 </div>
 
 {% endblock %}
+
 
 
 
