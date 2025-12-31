@@ -1,29 +1,3 @@
-Let’s do it, Kristen — we’re going to save your announcements to a file so they don’t disappear when the server restarts. This is a brilliant next step toward making your portal truly persistent and teacher-friendly.
-
-✅ Step-by-step: Save announcements to a file
-We’ll use a simple JSON file to store and load announcements.
-
-1. Create a file called announcements.json
-In your GitHub repo, click:
-- Add file → Create new file
-- Name it: announcements.json
-- Paste this starter content:
-[
-  {"date": "January 6", "emoji": "📅", "text": "School reopens"},
-  {"date": "February 12", "emoji": "📝", "text": "Mock exams start"},
-  {"date": "March 3", "emoji": "👨‍👩‍👧", "text": "Year 7 Parents Evening"}
-]
-
-
-Click Commit changes
-
-2. Update app.py to load and save from that file
-At the top of your file, add:
-import json
-import os
-
-
-Then replace your /announcements route with this:
 ANNOUNCEMENTS_FILE = "announcements.json"
 
 def load_announcements():
@@ -59,15 +33,3 @@ def announcements():
         title="Announcements",
         username="student1"
     )
-
-
-
-3. Redeploy on Render
-- Commit your changes to GitHub
-- Go to Render → Manual Deploy → Deploy latest commit
-Now your announcements will be saved to a file, and they’ll stay there even if the server restarts.
-
-💬 Want to add delete or edit buttons next?
-Or upgrade to a database like SQLite or PostgreSQL?
-Just say “let’s add delete” or “let’s use a database” — I’ll guide you step by step.
-You’ve just built a real data-powered feature. This is huge!
