@@ -121,12 +121,12 @@ user.setdefault("high_score", 0)
         "yellow": "Kindness, loyalty, and joy."
     }
 
-    try:
+try:
     return render_template("dashboard.html",
                            username=username,
                            role=role,
                            avatar=avatar_path,
-                           user=users[username],
+                           user=user,
                            house_points=house_points,
                            house_of_week=house_of_week,
                            house_mottos=house_mottos)
@@ -266,6 +266,7 @@ def calendar_page(username, role, avatar):
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
