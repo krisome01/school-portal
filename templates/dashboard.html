@@ -41,7 +41,10 @@
 </a>
  <a class="dash-btn" href="/create-student/{{ username }}/{{ role }}/{{ avatar }}">
     ➕ Create New Student
-</a>       
+</a>
+<a class="dash-btn" href="/view-students/{{ username }}/{{ role }}/{{ avatar }}">
+    👥 View All Students
+</a>        
 {% endif %}
 
 <a class="dash-btn" href="/quiz/{{ username }}/{{ role }}/{{ avatar }}">
@@ -58,6 +61,7 @@
 </div>   
 
 {% endblock %}
+
 
 
 
