@@ -78,6 +78,9 @@ def dashboard(username, role, avatar):
     if username not in users:
         return "User not found", 404
 
+    # ✔ Option 2: Safe avatar fallback
+    avatar_path = avatar if os.path.exists(f"static/{avatar}") else "default.png"
+
     # Calculate house points
     house_points = {"red": 0, "blue": 0, "green": 0, "yellow": 0}
     for user, data in users.items():
@@ -93,14 +96,16 @@ def dashboard(username, role, avatar):
         "yellow": "Kindness, loyalty, and joy."
     }
 
-    return render_template("dashboard.html",
-                           username=username,
-                           role=role,
-                           avatar=avatar,
-                           user=users[username],
-                           house_points=house_points,
-                           house_of_week=house_of_week,
-                           house_mottos=house_mottos)
+    return render_template(
+        "dashboard.html",
+        username=username,
+        role=role,
+        avatar=avatar_path,   # ← use the safe version
+        user=users[username],
+        house_points=house_points,
+        house_of_week=house_of_week,
+        house_mottos=house_mottos
+    )
 
 # -----------------------------
 # PROFILE PAGE
@@ -234,5 +239,6 @@ def calendar_page(username, role, avatar):
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
