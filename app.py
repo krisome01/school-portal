@@ -123,6 +123,11 @@ def dashboard(username, role, avatar):
         "yellow": "Kindness, loyalty, and joy."
     }
 
+    logging.info(
+        f"DEBUG: user={user}, avatar_path={avatar_path}, "
+        f"house_points={house_points}, house_of_week={house_of_week}"
+    )
+
     try:
         return render_template(
             "dashboard.html",
@@ -270,6 +275,7 @@ def calendar_page(username, role, avatar):
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
