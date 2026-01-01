@@ -149,11 +149,17 @@ def dashboard(username, role, avatar):
 # -----------------------------
 @app.route("/profile/<username>/<role>/<avatar>")
 def profile(username, role, avatar):
+    user = users.get(username)
+
+    if not user:
+        logging.error(f"User '{username}' not found in users dictionary")
+        return "User not found", 404
+
     return render_template("profile.html",
                            username=username,
                            role=role,
                            avatar=avatar,
-                           user=users[username])
+                           user=user)
 
 # -----------------------------
 # QUIZ GAME
@@ -276,6 +282,7 @@ def calendar_page(username, role, avatar):
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
