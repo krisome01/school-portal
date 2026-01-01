@@ -400,12 +400,43 @@ def view_student(username, role, avatar, student_username):
                            role=role,
                            avatar=avatar,
                            student_username=student_username,
-                           student=student)   
+                           student=student)
+@app.route("/edit-student/<username>/<role>/<avatar>/<student_username>", methods=["GET", "POST"])
+def edit_student(username, role, avatar, student_username):
+    if role != "teacher":
+        return "Access denied", 403
+
+    student = users.get(student_username)
+    if not student:
+        return "Student not found", 404
+
+    if request.method == "POST":
+        student["password"] = request.form["password"]
+        student["house"] = request.form["house"]
+        student["badge"] = request.form["badge"]
+        return redirect(url_for("view_student", username=username, role=role, avatar=avatar, student_username=student_username))
+
+    return render_template("edit_student.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           student_username=student_username,
+                           student=student) 
+  @app.route("/delete-student/<username>/<role>/<avatar>/<student_username>")
+def delete_student(username, role, avatar, student_username):
+    if role != "teacher":
+        return "Access denied", 403
+
+    if student_username in users:
+        del users[student_username]
+
+    return redirect(url_for("view_students", username=username, role=role, avatar=avatar))  
 # -----------------------------
 # RUN APP
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
