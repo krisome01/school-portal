@@ -28,10 +28,10 @@
 
 <form method="POST" class="profile-form">
     <label for="display_name">Display Name:</label>
-    <input type="text" name="display_name" value="{{ display_name }}" required>
+    <input type="text" name="display_name" value="{{ user.display_name or '' }}" required>
 
     <label for="bio">About Me:</label>
-    <textarea name="bio">{{ bio }}</textarea>
+    <textarea name="bio">{{ user.bio or '' }}</textarea>
 
     <button type="submit">Save Changes</button>
 </form>
@@ -59,12 +59,13 @@
         <a class="change-avatar-btn" href="/choose-avatar/{{ username }}/{{ role }}/{{ avatar }}">
     Change Avatar
 </a>
-     <p><strong>Badge:</strong> {{ users[username].badge }}</p>   
+     <p><strong>Badge:</strong> {{ user.badge }}</p> 
     </div>
 
 </div>
 
 {% endblock %}
+
 
 
 
