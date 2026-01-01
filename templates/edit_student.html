@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Edit Student: {{ student_username }}</h1>
+
+<form method="POST" class="profile-form">
+
+    <label>Password:</label>
+    <input type="text" name="password" value="{{ student.password }}" required>
+
+    <label>House:</label>
+    <select name="house">
+        <option value="red" {% if student.house == "red" %}selected{% endif %}>Red</option>
+        <option value="blue" {% if student.house == "blue" %}selected{% endif %}>Blue</option>
+        <option value="green" {% if student.house == "green" %}selected{% endif %}>Green</option>
+        <option value="yellow" {% if student.house == "yellow" %}selected{% endif %}>Yellow</option>
+    </select>
+
+    <label>Badge:</label>
+    <select name="badge">
+        <option value="None" {% if student.badge == "None" %}selected{% endif %}>None</option>
+        <option value="Bronze" {% if student.badge == "Bronze" %}selected{% endif %}>Bronze</option>
+        <option value="Silver" {% if student.badge == "Silver" %}selected{% endif %}>Silver</option>
+        <option value="Gold" {% if student.badge == "Gold" %}selected{% endif %}>Gold</option>
+    </select>
+
+    <button type="submit">Save Changes</button>
+</form>
+
+<a class="dash-btn" href="/view-students/{{ username }}/{{ role }}/{{ avatar }}">⬅ Back</a>
+
+{% endblock %}
