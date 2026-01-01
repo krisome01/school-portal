@@ -90,17 +90,19 @@ def dashboard(username, role, avatar):
     if username not in users:
         logging.error(f"User '{username}' not found in users dictionary")
         return "User not found", 404
-user = users.get(username)
 
-if not user:
-    logging.error(f"User '{username}' not found in users dictionary")
-    return "User not found", 404
+    user = users.get(username)
 
-# Guarantee required fields exist
-user.setdefault("house", "red")
-user.setdefault("badge", "None")
-user.setdefault("high_score", 0)
-    # ✅ Use absolute path for avatar check
+    if not user:
+        logging.error(f"User '{username}' not found in users dictionary")
+        return "User not found", 404
+
+    # Guarantee required fields exist
+    user.setdefault("house", "red")
+    user.setdefault("badge", "None")
+    user.setdefault("high_score", 0)
+
+    # Use absolute path for avatar check
     static_folder = os.path.join(os.path.dirname(__file__), "static")
     avatar_path = avatar if os.path.exists(os.path.join(static_folder, avatar)) else "default.png"
 
@@ -108,7 +110,7 @@ user.setdefault("high_score", 0)
         logging.warning(f"Avatar file missing: {avatar}. Using default.png instead.")
 
     house_points = {"red": 0, "blue": 0, "green": 0, "yellow": 0}
-    for user, data in users.items():
+    for username_key, data in users.items():
         house = data.get("house")
         house_points[house] += data.get("high_score", 0)
 
@@ -121,18 +123,20 @@ user.setdefault("high_score", 0)
         "yellow": "Kindness, loyalty, and joy."
     }
 
-try:
-    return render_template("dashboard.html",
-                           username=username,
-                           role=role,
-                           avatar=avatar_path,
-                           user=user,
-                           house_points=house_points,
-                           house_of_week=house_of_week,
-                           house_mottos=house_mottos)
-except Exception as e:
-    logging.error(f"Dashboard render failed: {e}")
-    return "Dashboard crashed", 500
+    try:
+        return render_template(
+            "dashboard.html",
+            username=username,
+            role=role,
+            avatar=avatar_path,
+            user=user,
+            house_points=house_points,
+            house_of_week=house_of_week,
+            house_mottos=house_mottos
+        )
+    except Exception as e:
+        logging.error(f"Dashboard render failed: {e}")
+        return "Dashboard crashed", 500
 
 # -----------------------------
 # PROFILE PAGE
@@ -266,6 +270,7 @@ def calendar_page(username, role, avatar):
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
