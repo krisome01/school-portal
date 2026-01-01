@@ -8,7 +8,11 @@
     {% for student in students %}
     <div class="student-card house-{{ student.house }}">
         <img src="{{ url_for('static', filename=student.avatar) }}" class="avatar student">
-        <h3>{{ student.username }}</h3>
+        <h3>
+    <a href="/student/{{ username }}/{{ role }}/{{ avatar }}/{{ student.username }}">
+        {{ student.username }}
+    </a>
+</h3>
         <p>House: {{ student.house|capitalize }}</p>
         <p>Badge: {{ student.badge }}</p>
         <p>High Score: {{ student.high_score }}</p>
