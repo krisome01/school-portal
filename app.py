@@ -234,4 +234,5 @@ def calendar_page(username, role, avatar):
 # RUN APP
 # -----------------------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
+
