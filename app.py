@@ -112,6 +112,7 @@ def dashboard(username, role, avatar):
         "yellow": "Kindness, loyalty, and joy."
     }
 
+    try:
     return render_template("dashboard.html",
                            username=username,
                            role=role,
@@ -120,6 +121,9 @@ def dashboard(username, role, avatar):
                            house_points=house_points,
                            house_of_week=house_of_week,
                            house_mottos=house_mottos)
+except Exception as e:
+    logging.error(f"Dashboard render failed: {e}")
+    return "Dashboard crashed", 500
 
 # -----------------------------
 # PROFILE PAGE
@@ -253,6 +257,7 @@ def calendar_page(username, role, avatar):
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
