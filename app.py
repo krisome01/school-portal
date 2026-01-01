@@ -90,7 +90,16 @@ def dashboard(username, role, avatar):
     if username not in users:
         logging.error(f"User '{username}' not found in users dictionary")
         return "User not found", 404
+user = users.get(username)
 
+if not user:
+    logging.error(f"User '{username}' not found in users dictionary")
+    return "User not found", 404
+
+# Guarantee required fields exist
+user.setdefault("house", "red")
+user.setdefault("badge", "None")
+user.setdefault("high_score", 0)
     # ✅ Use absolute path for avatar check
     static_folder = os.path.join(os.path.dirname(__file__), "static")
     avatar_path = avatar if os.path.exists(os.path.join(static_folder, avatar)) else "default.png"
@@ -257,6 +266,7 @@ def calendar_page(username, role, avatar):
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
