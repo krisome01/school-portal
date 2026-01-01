@@ -1,32 +1,36 @@
-{% extends "layout.html" %}
-{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Edit {{ student.display_name }}</h1>
 
-<h1>Edit Student: {{ student_username }}</h1>
+        <form method="POST">
+            <label>Password:</label>
+            <input type="text" name="password" value="{{ student.password }}" required>
 
-<form method="POST" class="profile-form">
+            <label>House:</label>
+            <select name="house">
+                <option value="red" {% if student.house == 'red' %}selected{% endif %}>Red</option>
+                <option value="blue" {% if student.house == 'blue' %}selected{% endif %}>Blue</option>
+                <option value="green" {% if student.house == 'green' %}selected{% endif %}>Green</option>
+                <option value="yellow" {% if student.house == 'yellow' %}selected{% endif %}>Yellow</option>
+            </select>
 
-    <label>Password:</label>
-    <input type="text" name="password" value="{{ student.password }}" required>
+            <label>Badge:</label>
+            <input type="text" name="badge" value="{{ student.badge }}">
 
-    <label>House:</label>
-    <select name="house">
-        <option value="red" {% if student.house == "red" %}selected{% endif %}>Red</option>
-        <option value="blue" {% if student.house == "blue" %}selected{% endif %}>Blue</option>
-        <option value="green" {% if student.house == "green" %}selected{% endif %}>Green</option>
-        <option value="yellow" {% if student.house == "yellow" %}selected{% endif %}>Yellow</option>
-    </select>
+            <label>High Score:</label>
+            <input type="number" name="high_score" value="{{ student.high_score }}">
 
-    <label>Badge:</label>
-    <select name="badge">
-        <option value="None" {% if student.badge == "None" %}selected{% endif %}>None</option>
-        <option value="Bronze" {% if student.badge == "Bronze" %}selected{% endif %}>Bronze</option>
-        <option value="Silver" {% if student.badge == "Silver" %}selected{% endif %}>Silver</option>
-        <option value="Gold" {% if student.badge == "Gold" %}selected{% endif %}>Gold</option>
-    </select>
+            <button type="submit">Save Changes</button>
+        </form>
 
-    <button type="submit">Save Changes</button>
-</form>
-
-<a class="dash-btn" href="/view-students/{{ username }}/{{ role }}/{{ avatar }}">⬅ Back</a>
-
-{% endblock %}
+        <br>
+        <a href="{{ url_for('view_student', username=username, role=role, avatar=avatar, student_username=student_username) }}">Back to {{ student.display_name }}</a>
+    </div>
+</body>
+</html>
