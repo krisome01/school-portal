@@ -23,6 +23,49 @@ users = {
         "badge": "None",
         "high_score": 0
     },
+    "student2": {"password": "password123", "role": "student", "avatar": "student2.png", "house": "blue", "badge": "None", "high_score": 0},
+"student3": {"password": "password123", "role": "student", "avatar": "student3.png", "house": "green", "badge": "None", "high_score": 0},
+"student4": {"password": "password123", "role": "student", "avatar": "student4.png", "house": "yellow", "badge": "None", "high_score": 0},
+"student5": {"password": "password123", "role": "student", "avatar": "student5.png", "house": "red", "badge": "None", "high_score": 0},
+"student6": {"password": "password123", "role": "student", "avatar": "student6.png", "house": "blue", "badge": "None", "high_score": 0},
+"student7": {"password": "password123", "role": "student", "avatar": "student7.png", "house": "green", "badge": "None", "high_score": 0},
+"student8": {"password": "password123", "role": "student", "avatar": "student8.png", "house": "yellow", "badge": "None", "high_score": 0},
+"student9": {"password": "password123", "role": "student", "avatar": "student9.png", "house": "red", "badge": "None", "high_score": 0},
+"student10": {"password": "password123", "role": "student", "avatar": "student10.png", "house": "blue", "badge": "None", "high_score": 0},
+"student11": {"password": "password123", "role": "student", "avatar": "student11.png", "house": "green", "badge": "None", "high_score": 0},
+"student12": {"password": "password123", "role": "student", "avatar": "student12.png", "house": "yellow", "badge": "None", "high_score": 0},
+"student13": {"password": "password123", "role": "student", "avatar": "student13.png", "house": "red", "badge": "None", "high_score": 0},
+"student14": {"password": "password123", "role": "student", "avatar": "student14.png", "house": "blue", "badge": "None", "high_score": 0},
+"student15": {"password": "password123", "role": "student", "avatar": "student15.png", "house": "green", "badge": "None", "high_score": 0},
+"student16": {"password": "password123", "role": "student", "avatar": "student16.png", "house": "yellow", "badge": "None", "high_score": 0},
+"student17": {"password": "password123", "role": "student", "avatar": "student17.png", "house": "red", "badge": "None", "high_score": 0},
+"student18": {"password": "password123", "role": "student", "avatar": "student18.png", "house": "blue", "badge": "None", "high_score": 0},
+"student19": {"password": "password123", "role": "student", "avatar": "student19.png", "house": "green", "badge": "None", "high_score": 0},
+"student20": {"password": "password123", "role": "student", "avatar": "student20.png", "house": "yellow", "badge": "None", "high_score": 0},
+"student21": {"password": "password123", "role": "student", "avatar": "student21.png", "house": "red", "badge": "None", "high_score": 0},
+"student22": {"password": "password123", "role": "student", "avatar": "student22.png", "house": "blue", "badge": "None", "high_score": 0},
+"student23": {"password": "password123", "role": "student", "avatar": "student23.png", "house": "green", "badge": "None", "high_score": 0},
+"student24": {"password": "password123", "role": "student", "avatar": "student24.png", "house": "yellow", "badge": "None", "high_score": 0},
+"student25": {"password": "password123", "role": "student", "avatar": "student25.png", "house": "red", "badge": "None", "high_score": 0},
+"student26": {"password": "password123", "role": "student", "avatar": "student26.png", "house": "blue", "badge": "None", "high_score": 0},
+"student27": {"password": "password123", "role": "student", "avatar": "student27.png", "house": "green", "badge": "None", "high_score": 0},
+"student28": {"password": "password123", "role": "student", "avatar": "student28.png", "house": "yellow", "badge": "None", "high_score": 0},
+"student29": {"password": "password123", "role": "student", "avatar": "student29.png", "house": "red", "badge": "None", "high_score": 0},
+"student30": {"password": "password123", "role": "student", "avatar": "student30.png", "house": "blue", "badge": "None", "high_score": 0},
+"student31": {"password": "password123", "role": "student", "avatar": "student31.png", "house": "green", "badge": "None", "high_score": 0},
+"student32": {"password": "password123", "role": "student", "avatar": "student32.png", "house": "yellow", "badge": "None", "high_score": 0},
+"student33": {"password": "password123", "role": "student", "avatar": "student33.png", "house": "red", "badge": "None", "high_score": 0},
+"student34": {"password": "password123", "role": "student", "avatar": "student34.png", "house": "blue", "badge": "None", "high_score": 0},
+"student35": {"password": "password123", "role": "student", "avatar": "student35.png", "house": "green", "badge": "None", "high_score": 0},
+"student36": {"password": "password123", "role": "student", "avatar": "student36.png", "house": "yellow", "badge": "None", "high_score": 0},
+"student37": {"password": "password123", "role": "student", "avatar": "student37.png", "house": "red", "badge": "None", "high_score": 0},
+"student38": {"password": "password123", "role": "student", "avatar": "student38.png", "house": "blue", "badge": "None", "high_score": 0},
+"student39": {"password": "password123", "role": "student", "avatar": "student39.png", "house": "green", "badge": "None", "high_score": 0},
+"student40": {"password": "password123", "role": "student", "avatar": "student40.png", "house": "yellow", "badge": "None", "high_score": 0},
+"student41": {"password": "password123", "role": "student", "avatar": "student41.png", "house": "red", "badge": "None", "high_score": 0},
+"student42": {"password": "password123", "role": "student", "avatar": "student42.png", "house": "blue", "badge": "None", "high_score": 0},
+"student43": {"password": "password123", "role": "student", "avatar": "student43.png", "house": "green", "badge": "None", "high_score": 0},
+"student44": {"password": "password123", "role": "student", "avatar": "student44.png", "house": "yellow", "badge": "None", "high_score": 0},
     "teacher": {
         "password": "teach2025",
         "role": "teacher",
@@ -31,6 +74,7 @@ users = {
         "badge": "None",
         "high_score": 0
     }
+    "teacher2": {"password": "teach2025", "role": "teacher", "avatar": "teacher2.png", "house": "blue", "badge": "None", "high_score": 0},
 }
 
 # -----------------------------
@@ -276,12 +320,54 @@ def add_grade(username, role, avatar):
 def calendar_page(username, role, avatar):
     return render_template("calendar.html",
                            username=username, role=role, avatar=avatar)
+@app.route("/create-student/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def create_student(username, role, avatar):
+    # Only teachers can create students
+    if role != "teacher":
+        return "Access denied", 403
 
+    message = ""
+
+    if request.method == "POST":
+        new_username = request.form["username"].strip()
+        password = request.form["password"].strip()
+        house = request.form["house"]
+
+        # Check if username already exists
+        if new_username in users:
+            message = "That username already exists. Try another one."
+        else:
+            # Create avatar filename automatically
+            avatar_filename = f"{new_username}.png"
+
+            # Add new student to users dictionary
+            users[new_username] = {
+                "password": password,
+                "role": "student",
+                "avatar": avatar_filename,
+                "house": house,
+                "badge": "None",
+                "high_score": 0
+            }
+
+            logging.info(f"New student created: {new_username}")
+
+            return redirect(url_for("dashboard",
+                                    username=username,
+                                    role=role,
+                                    avatar=avatar))
+
+    return render_template("create_student.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           message=message)
 # -----------------------------
 # RUN APP
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
