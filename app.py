@@ -81,19 +81,20 @@ def login():
 import os
 import logging
 
-# Logging setup (put this near the top of app.py)
 logging.basicConfig(level=logging.INFO)
 
 @app.route("/dashboard/<username>/<role>/<avatar>")
 def dashboard(username, role, avatar):
-
     logging.info(f"Dashboard accessed by {username} with avatar {avatar}")
 
     if username not in users:
         logging.error(f"User '{username}' not found in users dictionary")
         return "User not found", 404
 
-    avatar_path = avatar if os.path.exists(f"static/{avatar}") else "default.png"
+    # ✅ Use absolute path for avatar check
+    static_folder = os.path.join(os.path.dirname(__file__), "static")
+    avatar_path = avatar if os.path.exists(os.path.join(static_folder, avatar)) else "default.png"
+
     if avatar_path == "default.png":
         logging.warning(f"Avatar file missing: {avatar}. Using default.png instead.")
 
@@ -252,6 +253,7 @@ def calendar_page(username, role, avatar):
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
