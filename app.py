@@ -362,11 +362,35 @@ def create_student(username, role, avatar):
                            role=role,
                            avatar=avatar,
                            message=message)
+@app.route("/view-students/<username>/<role>/<avatar>")
+def view_students(username, role, avatar):
+    if role != "teacher":
+        return "Access denied", 403
+
+    student_list = []
+    for user_key, data in users.items():
+        if data.get("role") == "student":
+            student_list.append({
+                "username": user_key,
+                "avatar": data.get("avatar", "default.png"),
+                "house": data.get("house", "red"),
+                "badge": data.get("badge", "None"),
+                "high_score": data.get("high_score", 0)
+            })
+
+    student_list.sort(key=lambda x: x["username"])
+
+    return render_template("view_students.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           students=student_list)
 # -----------------------------
 # RUN APP
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
