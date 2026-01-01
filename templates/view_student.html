@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="profile-container">
+
+    <div class="avatar-wrapper">
+        <img src="{{ url_for('static', filename=student.avatar) }}" class="avatar student">
+    </div>
+
+    <h1 class="profile-name">{{ student_username }}</h1>
+    <p class="profile-role">Student Account</p>
+
+    <div class="profile-card">
+
+        <h2 class="section-title">Student Details</h2>
+
+        <div class="info-row">
+            <span class="info-label">Username:</span>
+            <span class="info-value">{{ student_username }}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">House:</span>
+            <span class="info-value">{{ student.house|capitalize }}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Badge:</span>
+            <span class="info-value">{{ student.badge }}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">High Score:</span>
+            <span class="info-value">{{ student.high_score }}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Role:</span>
+            <span class="info-value">{{ student.role }}</span>
+        </div>
+
+        <a class="dash-btn small" href="/edit-student/{{ username }}/{{ role }}/{{ avatar }}/{{ student_username }}">
+            ✏️ Edit Student
+        </a>
+
+        <a class="dash-btn small delete" href="/delete-student/{{ username }}/{{ role }}/{{ avatar }}/{{ student_username }}">
+            🗑️ Delete Student
+        </a>
+
+    </div>
+
+    <a class="dash-btn" href="/view-students/{{ username }}/{{ role }}/{{ avatar }}">
+        ⬅ Back to All Students
+    </a>
+
+</div>
+
+{% endblock %}
