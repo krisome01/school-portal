@@ -78,6 +78,12 @@ def login():
 # -----------------------------
 # DASHBOARD
 # -----------------------------
+import os
+import logging
+
+# Logging setup (put this near the top of app.py)
+logging.basicConfig(level=logging.INFO)
+
 @app.route("/dashboard/<username>/<role>/<avatar>")
 def dashboard(username, role, avatar):
 
@@ -87,21 +93,16 @@ def dashboard(username, role, avatar):
         logging.error(f"User '{username}' not found in users dictionary")
         return "User not found", 404
 
-    # Avatar fallback logging
     avatar_path = avatar if os.path.exists(f"static/{avatar}") else "default.png"
     if avatar_path == "default.png":
         logging.warning(f"Avatar file missing: {avatar}. Using default.png instead.")
 
-    # House points calculation
     house_points = {"red": 0, "blue": 0, "green": 0, "yellow": 0}
     for user, data in users.items():
         house = data.get("house")
         house_points[house] += data.get("high_score", 0)
 
-    logging.info(f"House points: {house_points}")
-
     house_of_week = max(house_points, key=house_points.get)
-    logging.info(f"House of the week: {house_of_week}")
 
     house_mottos = {
         "red": "Courage, creativity, and heart.",
@@ -110,16 +111,14 @@ def dashboard(username, role, avatar):
         "yellow": "Kindness, loyalty, and joy."
     }
 
-    return render_template(
-        "dashboard.html",
-        username=username,
-        role=role,
-        avatar=avatar_path,
-        user=users[username],
-        house_points=house_points,
-        house_of_week=house_of_week,
-        house_mottos=house_mottos
-    )
+    return render_template("dashboard.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar_path,
+                           user=users[username],
+                           house_points=house_points,
+                           house_of_week=house_of_week,
+                           house_mottos=house_mottos)
 
 # -----------------------------
 # PROFILE PAGE
@@ -253,6 +252,7 @@ def calendar_page(username, role, avatar):
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
