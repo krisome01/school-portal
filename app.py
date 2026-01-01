@@ -27,6 +27,7 @@ users = {
         "password": "teach2025",
         "role": "teacher",
         "avatar": "teacher.png",
+        "house": "yellow",
         "badge": "None",
         "high_score": 0
     }
@@ -111,7 +112,7 @@ def dashboard(username, role, avatar):
 
     house_points = {"red": 0, "blue": 0, "green": 0, "yellow": 0}
     for username_key, data in users.items():
-        house = data.get("house")
+        house = data.get("house") or "red"
         house_points[house] += data.get("high_score", 0)
 
     house_of_week = max(house_points, key=house_points.get)
@@ -275,6 +276,7 @@ def calendar_page(username, role, avatar):
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
