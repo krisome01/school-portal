@@ -1,8 +1,14 @@
+import logging
 import os
 import random
 from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
+# Logging setup
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s"
+)
 app.secret_key = "your_secret_key"
 
 # -----------------------------
@@ -75,19 +81,27 @@ def login():
 @app.route("/dashboard/<username>/<role>/<avatar>")
 def dashboard(username, role, avatar):
 
+    logging.info(f"Dashboard accessed by {username} with avatar {avatar}")
+
     if username not in users:
+        logging.error(f"User '{username}' not found in users dictionary")
         return "User not found", 404
 
-    # ✔ Option 2: Safe avatar fallback
+    # Avatar fallback logging
     avatar_path = avatar if os.path.exists(f"static/{avatar}") else "default.png"
+    if avatar_path == "default.png":
+        logging.warning(f"Avatar file missing: {avatar}. Using default.png instead.")
 
-    # Calculate house points
+    # House points calculation
     house_points = {"red": 0, "blue": 0, "green": 0, "yellow": 0}
     for user, data in users.items():
         house = data.get("house")
         house_points[house] += data.get("high_score", 0)
 
+    logging.info(f"House points: {house_points}")
+
     house_of_week = max(house_points, key=house_points.get)
+    logging.info(f"House of the week: {house_of_week}")
 
     house_mottos = {
         "red": "Courage, creativity, and heart.",
@@ -100,7 +114,7 @@ def dashboard(username, role, avatar):
         "dashboard.html",
         username=username,
         role=role,
-        avatar=avatar_path,   # ← use the safe version
+        avatar=avatar_path,
         user=users[username],
         house_points=house_points,
         house_of_week=house_of_week,
@@ -239,6 +253,7 @@ def calendar_page(username, role, avatar):
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
