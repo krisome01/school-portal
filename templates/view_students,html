@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>All Students</h1>
+<p class="subtitle">Here’s a list of every student in the portal.</p>
+
+<div class="student-grid">
+    {% for student in students %}
+    <div class="student-card house-{{ student.house }}">
+        <img src="{{ url_for('static', filename=student.avatar) }}" class="avatar student">
+        <h3>{{ student.username }}</h3>
+        <p>House: {{ student.house|capitalize }}</p>
+        <p>Badge: {{ student.badge }}</p>
+        <p>High Score: {{ student.high_score }}</p>
+
+        <a class="dash-btn small" href="/edit-student/{{ username }}/{{ role }}/{{ avatar }}/{{ student.username }}">
+            ✏️ Edit
+        </a>
+
+        <a class="dash-btn small delete" href="/delete-student/{{ username }}/{{ role }}/{{ avatar }}/{{ student.username }}">
+            🗑️ Delete
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<a class="dash-btn" href="/dashboard/{{ username }}/{{ role }}/{{ avatar }}">
+    ⬅ Back to Dashboard
+</a>
+
+{% endblock %}
