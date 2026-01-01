@@ -385,11 +385,28 @@ def view_students(username, role, avatar):
                            role=role,
                            avatar=avatar,
                            students=student_list)
+ @app.route("/student/<username>/<role>/<avatar>/<student_username>")
+def view_student(username, role, avatar, student_username):
+    # Only teachers can view student profiles
+    if role != "teacher":
+        return "Access denied", 403
+
+    student = users.get(student_username)
+    if not student:
+        return "Student not found", 404
+
+    return render_template("view_student.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           student_username=student_username,
+                           student=student)   
 # -----------------------------
 # RUN APP
 # -----------------------------
 if __name__ == "__main__":
     app.run()
+
 
 
 
