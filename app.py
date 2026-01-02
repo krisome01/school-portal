@@ -445,6 +445,7 @@ def add_announcement(username, role, avatar):
         avatar=avatar,
         message=message
     )
+
 @app.route("/grades/<username>/<role>/<avatar>")
 def grades(username, role, avatar):
     data = load_json("grades.json")
@@ -581,6 +582,7 @@ def leaderboard(username, role, avatar):
         attendance=sorted_attendance,
         house_points=sorted_house_points
     )
+
 @app.route("/quiz/<username>/<role>/<avatar>")
 def quiz_home(username, role, avatar):
     data = load_json("quizzes.json")
@@ -592,6 +594,7 @@ def quiz_home(username, role, avatar):
         avatar=avatar,
         quizzes=quizzes
     )
+
 @app.route("/create-quiz/<username>/<role>/<avatar>", methods=["GET", "POST"])
 def create_quiz(username, role, avatar):
     if role != "teacher":
@@ -642,6 +645,7 @@ def create_quiz(username, role, avatar):
         avatar=avatar,
         message=message
     )
+
 @app.route("/take-quiz/<int:quiz_id>/<username>/<role>/<avatar>", methods=["GET", "POST"])
 def take_quiz(quiz_id, username, role, avatar):
     data = load_json("quizzes.json")
@@ -684,6 +688,7 @@ def take_quiz(quiz_id, username, role, avatar):
         avatar=avatar,
         quiz=quiz
     )
+
 @app.route("/upload-homework/<username>/<role>/<avatar>", methods=["GET", "POST"])
 def upload_homework(username, role, avatar):
     if role != "student":
@@ -717,6 +722,7 @@ def upload_homework(username, role, avatar):
         avatar=avatar,
         message=message
     )
+
 @app.route("/view-homework/<username>/<role>/<avatar>")
 def view_homework(username, role, avatar):
     if role != "teacher":
@@ -732,6 +738,7 @@ def view_homework(username, role, avatar):
         avatar=avatar,
         submissions=submissions
     )
+
 @app.route("/delete-announcement/<int:index>/<username>/<role>/<avatar>")
 def delete_announcement(index, username, role, avatar):
     if role != "teacher":
@@ -1087,6 +1094,7 @@ def behaviour(username, role, avatar):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
