@@ -1,6 +1,6 @@
 from werkzeug.utils import secure_filename
 import os
-
+app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {"pdf", "docx", "jpg", "png", "txt"}
 
@@ -12,7 +12,6 @@ def allowed_file(filename):
 from flask import Flask, render_template, request, redirect, url_for
 from datetime import datetime
 
-app = Flask(__name__)
 import json
 import os
 
@@ -1112,6 +1111,7 @@ def my_homework(username, role, avatar):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
