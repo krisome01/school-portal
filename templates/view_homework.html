@@ -8,12 +8,14 @@
 {% if submissions %}
     <ul class="homework-list">
         {% for s in submissions %}
-            <li class="homework-item">
-                <strong>{{ s.student }}</strong> submitted <em>{{ s.filename }}</em>
-                <br>
-                <span class="homework-meta">Date: {{ s.date }}</span>
-            </li>
-        {% endfor %}
+    <li class="homework-item">
+        <strong>{{ s.student }}</strong> submitted <em>{{ s.filename }}</em>
+        <br>
+        <span class="homework-meta">Date: {{ s.date }}</span>
+
+        <a class="small-btn danger" href="{{ url_for('delete_homework', index=loop.index0, username=username, role=role, avatar=avatar) }}">🗑 Delete</a>
+    </li>
+{% endfor %}
     </ul>
 {% else %}
     <p>No homework submitted yet.</p>
