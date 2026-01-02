@@ -58,7 +58,9 @@ for idx, name in enumerate(student_names):
         "notes": [],
         "progress": [],
         "attendance": [],
-        "display_name": name
+        "display_name": name,
+        "house_points": 0,
+        "behaviour_points": []
     }
 
 # -----------------------------------
@@ -135,7 +137,8 @@ def view_students(username, role, avatar):
                 "avatar": data["avatar"],
                 "house": data["house"],
                 "badge": data["badge"],
-                "high_score": data["high_score"]
+                "high_score": data["high_score"],
+                "house_points": data["house_points"]
             })
 
     student_list.sort(key=lambda x: x["display_name"])
@@ -256,6 +259,71 @@ def add_score(username, role, avatar, student_username):
                             student_username=student_username))
 
 # -----------------------------------
+# Add House Points
+# -----------------------------------
+
+@app.route("/add-house-points/<username>/<role>/<avatar>/<student_username>", methods=["POST"])
+def add_house_points(username, role, avatar, student_username):
+    if role != "teacher":
+        return "Access denied", 403
+
+    points = int(request.form.get("points"))
+    users[student_username]["house_points"] += points
+
+    return redirect(url_for("view_student",
+                            username=username,
+                            role=role,
+                            avatar=avatar,
+                            student_username=student_username))
+
+# -----------------------------------
+# Add Behaviour Points
+# -----------------------------------
+
+@app.route("/add-behaviour/<username>/<role>/<avatar>/<student_username>", methods=["POST"])
+def add_behaviour(username, role, avatar, student_username):
+    if role != "teacher":
+        return "Access denied", 403
+
+    points = int(request.form.get("points"))
+    reason = request.form.get("reason")
+
+    entry = {
+        "date": today_str(),
+        "points": points,
+        "reason": reason
+    }
+
+    users[student_username]["behaviour_points"].append(entry)
+
+    return redirect(url_for("view_student",
+                            username=username,
+                            role=role,
+                            avatar=avatar,
+                            student_username=student_username))
+
+# -----------------------------------
+# House Leaderboard
+# -----------------------------------
+
+@app.route("/house-leaderboard/<username>/<role>/<avatar>")
+def house_leaderboard(username, role, avatar):
+    if role != "teacher":
+        return "Access denied", 403
+
+    totals = {"red": 0, "blue": 0, "green": 0, "yellow": 0}
+
+    for data in users.values():
+        if data["role"] == "student":
+            totals[data["house"]] += data["house_points"]
+
+    return render_template("house_leaderboard.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           totals=totals)
+
+# -----------------------------------
 # Daily Register
 # -----------------------------------
 
@@ -293,23 +361,3 @@ def register(username, role, avatar):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
