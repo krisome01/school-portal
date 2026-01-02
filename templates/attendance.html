@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}Attendance{% endblock %}
+
+{% block content %}
+<h1>📅 Your Attendance</h1>
+
+{% if days %}
+<ul class="grade-list">
+    {% for d in days %}
+        <li class="grade-item">{{ d }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No attendance recorded yet.</p>
+{% endif %}
+{% endblock %}
