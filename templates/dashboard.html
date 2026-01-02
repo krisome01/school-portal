@@ -27,6 +27,12 @@
     <a class="dash-btn" href="/upload-homework/{{ username }}/{{ role }}/{{ avatar }}">
         📤 Submit Homework
     </a>
+    <a class="dash-btn" href="/behaviour/{{ username }}/{{ role }}/{{ avatar }}">
+    ⭐ Your Behaviour
+    </a>
+    <a class="dash-btn" href="/attendance/{{ username }}/{{ role }}/{{ avatar }}">
+    📅 Your Attendance
+    </a>
 {% endif %}
         {% if role == "teacher" %}
 <a class="dash-btn" href="/add-announcement/{{ username }}/{{ role }}/{{ avatar }}">
@@ -50,7 +56,13 @@
 </a>
 <a class="dash-btn" href="/view-homework/{{ username }}/{{ role }}/{{ avatar }}">
     📚 View Homework Submissions
-</a>        
+</a>
+<a class="dash-btn" href="/add-behaviour/{{ username }}/{{ role }}/{{ avatar }}">
+    ➕ Add Behaviour Points
+</a>
+<a class="dash-btn" href="/mark-attendance/{{ username }}/{{ role }}/{{ avatar }}">
+    ✔️ Mark Attendance
+</a>
 {% endif %}
 
 <a class="dash-btn" href="/quiz/{{ username }}/{{ role }}/{{ avatar }}">
@@ -67,6 +79,7 @@
 </div>   
 
 {% endblock %}
+
 
 
 
