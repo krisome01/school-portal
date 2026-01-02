@@ -368,11 +368,63 @@ def register(username, role, avatar):
                            students=student_list,
                            users=users,
                            today=today)
+    
+@app.route("/announcements/<username>/<role>/<avatar>")
+def announcements(username, role, avatar):
+    data = load_json("announcements.json")
+    announcements_list = data.get("announcements", [])
+    return render_template(
+        "announcements.html",
+        username=username,
+        role=role,
+        avatar=avatar,
+        announcements=announcements_list
+    )
 
+
+@app.route("/add-announcement/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def add_announcement(username, role, avatar):
+    if role != "teacher":
+        return "Access denied. Only teachers can add announcements.", 403
+
+    data = load_json("announcements.json")
+    announcements_list = data.get("announcements", [])
+
+    message = None
+
+    if request.method == "POST":
+        title = request.form.get("title")
+        body = request.form.get("body")
+
+        if not title or not body:
+            message = "Please fill in both title and message."
+        else:
+            new_announcement = {
+                "title": title,
+                "message": body,
+                "date": datetime.now().strftime("%Y-%m-%d"),
+                "author": username
+            }
+            announcements_list.append(new_announcement)
+            data["announcements"] = announcements_list
+            save_json("announcements.json", data)
+            return redirect(url_for("announcements",
+                                    username=username,
+                                    role=role,
+                                    avatar=avatar))
+
+    return render_template(
+        "add_announcement.html",
+        username=username,
+        role=role,
+        avatar=avatar,
+        message=message
+    )
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
