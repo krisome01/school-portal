@@ -470,6 +470,7 @@ def add_announcement(username, role, avatar):
             return redirect(url_for("grades", username=username, role=role, avatar=avatar))
 
     return render_template("add_grade.html", username=username, role=role, avatar=avatar, message=message)
+
 @app.route("/calendar/<username>/<role>/<avatar>")
 def calendar_page(username, role, avatar):
     data = load_json("calendar.json")
@@ -481,7 +482,6 @@ def calendar_page(username, role, avatar):
         avatar=avatar,
         events=events
     )
-
 
 @app.route("/add-event/<username>/<role>/<avatar>", methods=["GET", "POST"])
 def add_event(username, role, avatar):
@@ -1015,12 +1015,48 @@ def leaderboard(username, role, avatar):
                            avatar=avatar,
                            behaviour=behaviour_sorted,
                            attendance=attendance_sorted)
+
+@app.route("/submit-homework/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def submit_homework(username, role, avatar):
+    message = None
+    if request.method == "POST":
+        file = request.files.get("file")
+        subject = request.form.get("subject")
+
+        if not file or not allowed_file(file.filename):
+            message = "Invalid file type."
+        else:
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+            file.save(filepath)
+
+            data = load_json("homework.json")
+            submissions = data.get("homework", [])
+
+            submissions.append({
+                "student": username,
+                "filename": filename,
+                "subject": subject,
+                "date": datetime.now().strftime("%Y-%m-%d")
+            })
+
+            data["homework"] = submissions
+            save_json("homework.json", data)
+
+            message = "Homework submitted!"
+
+    return render_template("submit_homework.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           message=message)
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
