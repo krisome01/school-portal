@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Behaviour Points{% endblock %}
+
+{% block content %}
+<h1>⭐ Your Behaviour Points</h1>
+
+{% if points %}
+<ul class="grade-list">
+    {% for p in points %}
+        <li class="grade-item">
+            +{{ p.points }} points — {{ p.reason }} ({{ p.date }})
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No behaviour points yet.</p>
+{% endif %}
+{% endblock %}
