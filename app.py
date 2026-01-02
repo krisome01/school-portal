@@ -2,6 +2,20 @@ from flask import Flask, render_template, request, redirect, url_for
 from datetime import datetime
 
 app = Flask(__name__)
+import json
+import os
+
+def load_json(filename):
+    path = os.path.join("data", filename)
+    if not os.path.exists(path):
+        return {}
+    with open(path, "r") as f:
+        return json.load(f)
+
+def save_json(filename, data):
+    path = os.path.join("data", filename)
+    with open(path, "w") as f:
+        json.dump(data, f, indent=4)
 
 # -----------------------------------
 # Teacher Accounts
@@ -361,3 +375,4 @@ def register(username, role, avatar):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
