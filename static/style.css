@@ -346,3 +346,27 @@ a:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 14px rgba(0,0,0,0.25);
 }
+.dashboard-card {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/* Example house colours */
+.house-Gryffindor { border: 3px solid #b30000; }
+.house-Ravenclaw { border: 3px solid #003366; }
+.house-Hufflepuff { border: 3px solid #d4af37; }
+.house-Slytherin { border: 3px solid #004d00; }
+
+.house-badge {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #2a4b8d;
+    color: white;
+    font-weight: bold;
+}
