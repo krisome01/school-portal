@@ -14,17 +14,23 @@
 {% if announcements %}
     <ul class="announcement-list">
         {% for a in announcements %}
-            <li class="announcement-item">
-                <h3>{{ a.title }}</h3>
-                <p>{{ a.message }}</p>
-                <p class="announcement-meta">
-                    Posted by {{ a.author }} on {{ a.date }}
-                </p>
-            </li>
-        {% endfor %}
+    <li class="announcement-item">
+        <h3>{{ a.title }}</h3>
+        <p>{{ a.message }}</p>
+        <p class="announcement-meta">
+            Posted by {{ a.author }} on {{ a.date }}
+        </p>
+
+        {% if role == "teacher" %}
+            <a class="small-btn" href="{{ url_for('edit_announcement', index=loop.index0, username=username, role=role, avatar=avatar) }}">✏️ Edit</a>
+            <a class="small-btn danger" href="{{ url_for('delete_announcement', index=loop.index0, username=username, role=role, avatar=avatar) }}">🗑 Delete</a>
+        {% endif %}
+    </li>
+{% endfor %}
     </ul>
 {% else %}
     <p>No announcements yet. Check back soon!</p>
 {% endif %}
 {% endblock %}
+
 
