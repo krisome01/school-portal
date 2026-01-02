@@ -1,11 +1,6 @@
-/* ------------------------------
-   GLOBAL RESET & BASICS
---------------------------------*/
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* -----------------------------------
+   GLOBAL
+----------------------------------- */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -14,50 +9,38 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
-/* ------------------------------
-   IMAGE SIZING
---------------------------------*/
 
-/* Small avatars (leaderboards, lists, student cards) */
-.avatar {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 50%;
+/* -----------------------------------
+   HEADINGS
+----------------------------------- */
+h1, h2, h3, h4 {
+  color: #1a237e; /* Deep classroom blue */
+  margin-bottom: 10px;
 }
 
-/* Profile pictures (teacher pages, student profiles) */
-.profile-pic {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
+/* -----------------------------------
+   LINKS
+----------------------------------- */
+a {
+  color: #1565c0; /* Bright blue */
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.2s ease;
 }
 
-/* Thumbnail images (small previews, grids) */
-.thumbnail {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 6px;
+a:hover {
+  color: #0d47a1; /* Darker blue */
+  text-decoration: underline;
 }
 
-/* Banner images (headers, announcements) */
-.banner {
-  width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-/* ------------------------------
+/* -----------------------------------
    BUTTONS
---------------------------------*/
+----------------------------------- */
 button, .btn {
   padding: 10px 18px;
   border: none;
   border-radius: 6px;
-  background-color: #4CAF50;
+  background-color: #4CAF50; /* Green */
   color: white;
   cursor: pointer;
   font-size: 1rem;
@@ -65,47 +48,70 @@ button, .btn {
 }
 
 button:hover, .btn:hover {
-  background-color: #45a049;
+  background-color: #388e3c; /* Darker green */
 }
 
-/* ------------------------------
-   CARD LAYOUTS
---------------------------------*/
+/* -----------------------------------
+   CARDS / BOXES
+----------------------------------- */
 .card {
-  background: white;
+  background: #ffffff;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
   margin-bottom: 20px;
+  border-left: 6px solid #4CAF50; /* Green accent */
 }
 
-/* ------------------------------
-   FLEX UTILITIES
---------------------------------*/
-.flex {
-  display: flex;
-  align-items: center;
+/* -----------------------------------
+   ICONS / EMOJIS
+----------------------------------- */
+.emoji {
+  font-size: 1.4rem;
+  margin-right: 6px;
 }
 
-.flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* -----------------------------------
+   IMAGE SIZES
+----------------------------------- */
+.avatar {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #4CAF50; /* Green ring */
 }
 
-.flex-between {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.profile-pic {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 4px solid #1a237e; /* Blue frame */
 }
 
-/* ------------------------------
-   SPACING UTILITIES
---------------------------------*/
-.mt-1 { margin-top: 10px; }
-.mt-2 { margin-top: 20px; }
-.mt-3 { margin-top: 30px; }
+/* -----------------------------------
+   NAVIGATION / LISTS
+----------------------------------- */
+.nav-list a {
+  display: block;
+  padding: 10px 12px;
+  background: #ffffffcc;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  transition: 0.2s ease;
+}
 
-.mb-1 { margin-bottom: 10px; }
-.mb-2 { margin-bottom: 20px; }
-.mb-3 { margin-bottom: 30px; }
+.nav-list a:hover {
+  background: #bbdefb; /* Soft blue hover */
+}
+
+/* -----------------------------------
+   FOOTER
+----------------------------------- */
+.footer {
+  margin-top: 40px;
+  text-align: center;
+  color: #1a237e;
+  font-weight: bold;
+}
