@@ -1087,12 +1087,24 @@ def give_feedback(index, username, role, avatar):
 def download(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename, as_attachment=True)
 
+@app.route("/my-homework/<username>/<role>/<avatar>")
+def my_homework(username, role, avatar):
+    data = load_json("homework.json")
+    submissions = [s for s in data.get("homework", []) if s["student"] == username]
+
+    return render_template("my_homework.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           submissions=submissions)
+
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
