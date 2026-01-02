@@ -548,12 +548,116 @@ def leaderboard(username, role, avatar):
         attendance=sorted_attendance,
         house_points=sorted_house_points
     )
+@app.route("/quiz/<username>/<role>/<avatar>")
+def quiz_home(username, role, avatar):
+    data = load_json("quizzes.json")
+    quizzes = data.get("quizzes", [])
+    return render_template(
+        "quiz.html",
+        username=username,
+        role=role,
+        avatar=avatar,
+        quizzes=quizzes
+    )
+@app.route("/create-quiz/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def create_quiz(username, role, avatar):
+    if role != "teacher":
+        return "Access denied. Only teachers can create quizzes.", 403
+
+    data = load_json("quizzes.json")
+    quizzes = data.get("quizzes", [])
+
+    message = None
+
+    if request.method == "POST":
+        title = request.form.get("title")
+        question = request.form.get("question")
+        options = [
+            request.form.get("opt1"),
+            request.form.get("opt2"),
+            request.form.get("opt3"),
+            request.form.get("opt4")
+        ]
+        answer = request.form.get("answer")
+
+        if not title or not question or not answer:
+            message = "Please fill in all fields."
+        else:
+            new_quiz = {
+                "id": len(quizzes) + 1,
+                "title": title,
+                "questions": [
+                    {
+                        "question": question,
+                        "options": options,
+                        "answer": answer
+                    }
+                ]
+            }
+            quizzes.append(new_quiz)
+            data["quizzes"] = quizzes
+            save_json("quizzes.json", data)
+            return redirect(url_for("quiz_home",
+                                    username=username,
+                                    role=role,
+                                    avatar=avatar))
+
+    return render_template(
+        "create_quiz.html",
+        username=username,
+        role=role,
+        avatar=avatar,
+        message=message
+    )
+@app.route("/take-quiz/<int:quiz_id>/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def take_quiz(quiz_id, username, role, avatar):
+    data = load_json("quizzes.json")
+    quizzes = data.get("quizzes", [])
+    quiz = next((q for q in quizzes if q["id"] == quiz_id), None)
+
+    if not quiz:
+        return "Quiz not found."
+
+    if request.method == "POST":
+        score = 0
+        for i, q in enumerate(quiz["questions"]):
+            user_answer = request.form.get(f"q{i}")
+            if user_answer == q["answer"]:
+                score += 1
+
+        # Save result
+        results = data.get("results", {})
+        if username not in results:
+            results[username] = []
+        results[username].append({
+            "quiz_id": quiz_id,
+            "score": score,
+            "date": datetime.now().strftime("%Y-%m-%d")
+        })
+        data["results"] = results
+        save_json("quizzes.json", data)
+
+        return redirect(url_for("quiz_result",
+                                quiz_id=quiz_id,
+                                username=username,
+                                role=role,
+                                avatar=avatar,
+                                score=score))
+
+    return render_template(
+        "take_quiz.html",
+        username=username,
+        role=role,
+        avatar=avatar,
+        quiz=quiz
+    )
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
