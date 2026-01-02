@@ -432,16 +432,16 @@ def add_announcement(username, role, avatar):
         message=message
     )
 @app.route("/grades/<username>/<role>/<avatar>")
-    def grades(username, role, avatar):
-        data = load_json("grades.json")
-        all_grades = data.get("grades", {})
-        user_grades = all_grades.get(username, [])
-        return render_template("grades.html", username=username, role=role, avatar=avatar, grades=user_grades)
+def grades(username, role, avatar):
+    data = load_json("grades.json")
+    all_grades = data.get("grades", {})
+    user_grades = all_grades.get(username, [])
+    return render_template("grades.html", username=username, role=role, avatar=avatar, grades=user_grades)
     
 @app.route("/add-grade/<username>/<role>/<avatar>", methods=["GET", "POST"])
-    def add_grade(username, role, avatar):
-        if role != "teacher":
-            return "Access denied. Only teachers can add grades.", 403
+ def add_grade(username, role, avatar):
+    if role != "teacher":
+         return "Access denied. Only teachers can add grades.", 403
 
     data = load_json("grades.json")
     all_grades = data.get("grades", {})
@@ -1104,6 +1104,7 @@ def my_homework(username, role, avatar):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
