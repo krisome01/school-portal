@@ -420,11 +420,51 @@ def add_announcement(username, role, avatar):
         avatar=avatar,
         message=message
     )
+@app.route("/grades/<username>/<role>/<avatar>")
+    def grades(username, role, avatar):
+        data = load_json("grades.json")
+        all_grades = data.get("grades", {})
+        user_grades = all_grades.get(username, [])
+        return render_template("grades.html", username=username, role=role, avatar=avatar, grades=user_grades)
+    
+@app.route("/add-grade/<username>/<role>/<avatar>", methods=["GET", "POST"])
+    def add_grade(username, role, avatar):
+        if role != "teacher":
+            return "Access denied. Only teachers can add grades.", 403
+
+    data = load_json("grades.json")
+    all_grades = data.get("grades", {})
+
+    message = None
+
+    if request.method == "POST":
+        student = request.form.get("student")
+        subject = request.form.get("subject")
+        grade = request.form.get("grade")
+
+        if not student or not subject or not grade:
+            message = "Please fill in all fields."
+        else:
+            entry = {
+                "subject": subject,
+                "grade": grade,
+                "date": datetime.now().strftime("%Y-%m-%d")
+            }
+            if student in all_grades:
+                all_grades[student].append(entry)
+            else:
+                all_grades[student] = [entry]
+            data["grades"] = all_grades
+            save_json("grades.json", data)
+            return redirect(url_for("grades", username=username, role=role, avatar=avatar))
+
+    return render_template("add_grade.html", username=username, role=role, avatar=avatar, message=message) 
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
