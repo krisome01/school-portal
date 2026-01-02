@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Homework Submissions{% endblock %}
+
+{% block content %}
+<h1>📚 Homework Submissions</h1>
+<p class="subtitle">View all student homework uploads.</p>
+
+{% if submissions %}
+    <ul class="homework-list">
+        {% for s in submissions %}
+            <li class="homework-item">
+                <strong>{{ s.student }}</strong> submitted <em>{{ s.filename }}</em>
+                <br>
+                <span class="homework-meta">Date: {{ s.date }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No homework submitted yet.</p>
+{% endif %}
+{% endblock %}
