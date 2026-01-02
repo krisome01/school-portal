@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}Edit Grade{% endblock %}
+
+{% block content %}
+<h1>✏️ Edit Grade</h1>
+
+{% if message %}
+<p class="error">{{ message }}</p>
+{% endif %}
+
+<form method="POST" class="profile-form">
+    <label>Subject</label>
+    <input type="text" name="subject" value="{{ grade_entry.subject }}" required>
+
+    <label>Grade</label>
+    <input type="text" name="grade" value="{{ grade_entry.grade }}" required>
+
+    <button type="submit">Save Changes</button>
+</form>
+{% endblock %}
