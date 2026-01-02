@@ -1,5 +1,24 @@
 {% extends "layout.html" %}
+{% block title %}Add Grade{% endblock %}
+
 {% block content %}
 <h1>➕ Add Grade</h1>
-<p>Grade entry will be available soon.</p>
+<p class="subtitle">Record a grade for a student.</p>
+
+{% if message %}
+    <p class="error">{{ message }}</p>
+{% endif %}
+
+<form method="POST" class="profile-form">
+    <label>Student Username</label>
+    <input type="text" name="student" required>
+
+    <label>Subject</label>
+    <input type="text" name="subject" required>
+
+    <label>Grade</label>
+    <input type="text" name="grade" required>
+
+    <button type="submit">Submit Grade</button>
+</form>
 {% endblock %}
