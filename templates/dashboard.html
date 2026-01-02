@@ -1,104 +1,89 @@
-{% extends "layout.html" %}
-{% block content %}
-<div class="house-banner house-{{ user.house }}">
-    {{ user.house|capitalize }} House
-</div>
-<div class="avatar-wrapper">
-    <img src="{{ url_for('static', filename=avatar) }}" class="avatar {{ role }}">
-    <span class="role-badge">
-        {% if role == "student" %}🎓{% else %}⭐{% endif %}
-    </span>
-</div>
+/* ------------------------------
+   GLOBAL
+------------------------------ */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f9fc;
+    color: #1a1a1a;
+}
 
-    <h1 class="welcome">Welcome, {{ username }}!</h1>
-    <p class="subtitle">Choose an option below to get started.</p>
+/* ------------------------------
+   HERO SECTION
+------------------------------ */
+.hero {
+    background-color: #0d1b4c; /* deep navy */
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+}
 
-    <div class="dashboard-buttons">
-        <a class="dash-btn" href="/announcements/{{ username }}/{{ role }}/{{ avatar }}">
-    📢 Announcements
-</a>
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
 
-<a class="dash-btn" href="/grades/{{ username }}/{{ role }}/{{ avatar }}">
-    📊 Your Grades
-</a>
+.hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
 
-<a class="dash-btn" href="/profile/{{ username }}/{{ role }}/{{ avatar }}">
-    👤 Your Profile
-</a>
-        {% if role == "student" %}
-<a class="dash-btn" href="/upload-homework/{{ username }}/{{ role }}/{{ avatar }}">
-        📤 Submit Homework
- </a>
-<a class="dash-btn" href="/behaviour/{{ username }}/{{ role }}/{{ avatar }}">
-    ⭐ Your Behaviour
- </a>
-<a class="dash-btn" href="/attendance/{{ username }}/{{ role }}/{{ avatar }}">
-    📅 Your Attendance
-</a>
-<a class="dash-btn" href="/submit-homework/{{ username }}/{{ role }}/{{ avatar }}">
-    📁 Submit Homework
-</a>
-<a class="dash-btn" href="/my-homework/{{ username }}/{{ role }}/{{ avatar }}">
-    📁 Your Homework
-</a>
-{% endif %}
-        {% if role == "teacher" %}
-<a class="dash-btn" href="/add-announcement/{{ username }}/{{ role }}/{{ avatar }}">
-        ➕ Add Announcement
- </a>
-<a class="dash-btn" href="/add-grade/{{ username }}/{{ role }}/{{ avatar }}">
-        ➕ Add Grade
-</a>
-<a class="dash-btn" href="/calendar/{{ username }}/{{ role }}/{{ avatar }}">
-    📅 Calendar
-</a>
- <a class="dash-btn" href="/create-student/{{ username }}/{{ role }}/{{ avatar }}">
-    ➕ Create New Student
-</a>
-<a class="dash-btn" href="/view-students/{{ username }}/{{ role }}/{{ avatar }}">
-    👥 View All Students
-</a>
-<a href="{{ url_for('house_leaderboard', username=username, role=role, avatar=avatar) }}">
-    View House Leaderboard
-</a>
-<a class="dash-btn" href="/view-homework/{{ username }}/{{ role }}/{{ avatar }}">
-    📚 View Homework Submissions
-</a>
-<a class="dash-btn" href="/add-behaviour/{{ username }}/{{ role }}/{{ avatar }}">
-    ➕ Add Behaviour Points
-</a>
-<a class="dash-btn" href="/mark-attendance/{{ username }}/{{ role }}/{{ avatar }}">
-    ✔️ Mark Attendance
-</a>
-{% endif %}
+/* ------------------------------
+   MAIN CONTAINER
+------------------------------ */
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
 
-<a class="dash-btn" href="/quiz/{{ username }}/{{ role }}/{{ avatar }}">
-    🎮 Quiz Game
-</a>
-<a class="dash-btn" href="/leaderboard/{{ username }}/{{ role }}/{{ avatar }}">
-    🏆 Leaderboard
-</a>
- <div class="dashboard-card house-{{ user.house }} house-float">
-    <h2>Welcome, {{ username }}!</h2>
-    <span class="house-badge {{ user.house }}">
-        {{ user.house|capitalize }} House
-    </span>
-</div>   
+/* ------------------------------
+   CARD GRID
+------------------------------ */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
 
-{% endblock %}
+/* ------------------------------
+   CARDS
+------------------------------ */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #0d1b4c;
+    border: 2px solid #e0e6f5;
+    transition: 0.25s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
 
+.card:hover {
+    border-color: #c5d1f2;
+    transform: translateY(-4px);
+}
 
+.card h3 {
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+    color: #0d1b4c;
+}
 
+.card p {
+    margin: 0;
+    color: #333;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+/* ------------------------------
+   FOOTER
+------------------------------ */
+.footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #0d1b4c;
+    color: white;
+    margin-top: 40px;
+    font-size: 0.9rem;
+}
