@@ -311,3 +311,21 @@ a:hover {
     font-size: 14px;
     color: #555;
 }
+.main-nav {
+    background: rgba(42, 75, 141, 0.95);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-weight: bold;
+}
+
+.nav-right .nav-link {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
