@@ -1050,12 +1050,18 @@ def submit_homework(username, role, avatar):
                            role=role,
                            avatar=avatar,
                            message=message)
+
+@app.route("/download/<filename>")
+def download(filename):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], filename, as_attachment=True)
+
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
