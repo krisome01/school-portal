@@ -458,13 +458,66 @@ def add_announcement(username, role, avatar):
             save_json("grades.json", data)
             return redirect(url_for("grades", username=username, role=role, avatar=avatar))
 
-    return render_template("add_grade.html", username=username, role=role, avatar=avatar, message=message) 
+    return render_template("add_grade.html", username=username, role=role, avatar=avatar, message=message)
+@app.route("/calendar/<username>/<role>/<avatar>")
+def calendar_page(username, role, avatar):
+    data = load_json("calendar.json")
+    events = data.get("events", [])
+    return render_template(
+        "calendar.html",
+        username=username,
+        role=role,
+        avatar=avatar,
+        events=events
+    )
+
+
+@app.route("/add-event/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def add_event(username, role, avatar):
+    if role != "teacher":
+        return "Access denied. Only teachers can add events.", 403
+
+    data = load_json("calendar.json")
+    events = data.get("events", [])
+
+    message = None
+
+    if request.method == "POST":
+        title = request.form.get("title")
+        date = request.form.get("date")
+        description = request.form.get("description")
+
+        if not title or not date or not description:
+            message = "Please fill in all fields."
+        else:
+            new_event = {
+                "title": title,
+                "date": date,
+                "description": description,
+                "created_by": username
+            }
+            events.append(new_event)
+            data["events"] = events
+            save_json("calendar.json", data)
+            return redirect(url_for("calendar_page",
+                                    username=username,
+                                    role=role,
+                                    avatar=avatar))
+
+    return render_template(
+        "add_event.html",
+        username=username,
+        role=role,
+        avatar=avatar,
+        message=message
+    )
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
