@@ -151,3 +151,18 @@ a:hover {
     border-top: 5px solid #d0e0ff;
     font-size: 14px;
 }
+.under-construction {
+    text-align: center;
+    padding: 40px;
+}
+
+.under-construction h1 {
+    font-size: 36px;
+    color: #2a4b8d;
+    margin-bottom: 10px;
+}
+
+.under-construction p {
+    font-size: 18px;
+    margin: 8px 0;
+}
