@@ -1,58 +1,53 @@
-{% extends "layout.html" %}
-{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ student.display_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
 
-<div class="profile-container">
+    <h1>{{ student.display_name }}</h1>
+    <img src="{{ url_for('static', filename=student.avatar) }}" width="120">
 
-    <div class="avatar-wrapper">
-        <img src="{{ url_for('static', filename=student.avatar) }}" class="avatar student">
-    </div>
+    <p><strong>House:</strong> {{ student.house }}</p>
+    <p><strong>Badge:</strong> {{ student.badge }}</p>
+    <p><strong>High Score:</strong> {{ student.high_score }}</p>
+    <p><strong>House Points:</strong> {{ student.house_points }}</p>
 
-    <h1 class="profile-name">{{ student_username }}</h1>
-    <p class="profile-role">Student Account</p>
+    <hr>
 
-    <div class="profile-card">
+    <h2>Add House Points</h2>
+    <form method="POST" action="{{ url_for('add_house_points', username=username, role=role, avatar=avatar, student_username=student_username) }}">
+        <input type="number" name="points" value="1" required>
+        <button type="submit">Give Points</button>
+    </form>
 
-        <h2 class="section-title">Student Details</h2>
+    <hr>
 
-        <div class="info-row">
-            <span class="info-label">Username:</span>
-            <span class="info-value">{{ student_username }}</span>
-        </div>
+    <h2>Add Behaviour Entry</h2>
+    <form method="POST" action="{{ url_for('add_behaviour', username=username, role=role, avatar=avatar, student_username=student_username) }}">
+        <label>Points (+ or -):</label>
+        <input type="number" name="points" required>
 
-        <div class="info-row">
-            <span class="info-label">House:</span>
-            <span class="info-value">{{ student.house|capitalize }}</span>
-        </div>
+        <label>Reason:</label>
+        <input type="text" name="reason" required>
 
-        <div class="info-row">
-            <span class="info-label">Badge:</span>
-            <span class="info-value">{{ student.badge }}</span>
-        </div>
+        <button type="submit">Add Behaviour</button>
+    </form>
 
-        <div class="info-row">
-            <span class="info-label">High Score:</span>
-            <span class="info-value">{{ student.high_score }}</span>
-        </div>
+    <h3>Behaviour Log</h3>
+    <ul>
+        {% for entry in student.behaviour_points %}
+            <li>{{ entry.date }} — {{ entry.points }} — {{ entry.reason }}</li>
+        {% endfor %}
+    </ul>
 
-        <div class="info-row">
-            <span class="info-label">Role:</span>
-            <span class="info-value">{{ student.role }}</span>
-        </div>
+    <hr>
 
-        <a class="dash-btn small" href="/edit-student/{{ username }}/{{ role }}/{{ avatar }}/{{ student_username }}">
-            ✏️ Edit Student
-        </a>
-
-        <a class="dash-btn small delete" href="/delete-student/{{ username }}/{{ role }}/{{ avatar }}/{{ student_username }}">
-            🗑️ Delete Student
-        </a>
-
-    </div>
-
-    <a class="dash-btn" href="/view-students/{{ username }}/{{ role }}/{{ avatar }}">
-        ⬅ Back to All Students
-    </a>
+    <a href="{{ url_for('edit_student', username=username, role=role, avatar=avatar, student_username=student_username) }}">Edit Student</a><br>
+    <a href="{{ url_for('view_students', username=username, role=role, avatar=avatar) }}">Back to Students</a>
 
 </div>
-
-{% endblock %}
+</body>
+</html>
