@@ -7,7 +7,17 @@
 </head>
 
 <body>
-
+<nav class="main-nav">
+    <div class="nav-left">
+        <span class="nav-logo">🏰 School Portal</span>
+    </div>
+    <div class="nav-right">
+        {% if username is defined %}
+            <span class="nav-user">Logged in as {{ username }} ({{ role }})</span>
+            <a href="{{ url_for('login') }}" class="nav-link">Logout</a>
+        {% endif %}
+    </div>
+</nav>
     <!-- HEADER -->
     <header class="main-header">
         <h1 class="portal-title">🏰 School Portal</h1>
@@ -28,5 +38,6 @@
 
 </body>
 </html>
+
 
 
