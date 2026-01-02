@@ -861,12 +861,31 @@ def edit_quiz(quiz_id, username, role, avatar):
                            avatar=avatar,
                            quiz=quiz,
                            question=question)
+@app.route("/delete-homework/<int:index>/<username>/<role>/<avatar>")
+def delete_homework(index, username, role, avatar):
+    if role != "teacher":
+        return "Access denied.", 403
+
+    data = load_json("homework.json")
+    submissions = data.get("homework", [])
+
+    if 0 <= index < len(submissions):
+        submissions.pop(index)
+        data["homework"] = submissions
+        save_json("homework.json", data)
+
+    return redirect(url_for("view_homework",
+                            username=username,
+                            role=role,
+                            avatar=avatar))
+
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
