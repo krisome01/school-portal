@@ -1,5 +1,20 @@
 {% extends "layout.html" %}
+{% block title %}Your Grades{% endblock %}
+
 {% block content %}
-<h1>📊 Grades</h1>
-<p>Your grades will appear here soon.</p>
+<h1>📊 Your Grades</h1>
+<p class="subtitle">See your progress across subjects.</p>
+
+{% if grades %}
+    <ul class="grade-list">
+        {% for g in grades %}
+            <li class="grade-item">
+                <strong>{{ g.subject }}</strong>: {{ g.grade }} ({{ g.date }})
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No grades recorded yet.</p>
+{% endif %}
 {% endblock %}
+
