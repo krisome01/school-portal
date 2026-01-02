@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Leaderboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+
+    <h1>House Leaderboard</h1>
+
+    <ul>
+        <li>Red House: {{ totals.red }}</li>
+        <li>Blue House: {{ totals.blue }}</li>
+        <li>Green House: {{ totals.green }}</li>
+        <li>Yellow House: {{ totals.yellow }}</li>
+    </ul>
+
+    <a href="{{ url_for('dashboard', username=username, role=role, avatar=avatar) }}">Back to Dashboard</a>
+
+</div>
+</body>
+</html>
