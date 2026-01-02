@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}My Homework{% endblock %}
+
+{% block content %}
+<h1>📁 Your Homework Submissions</h1>
+
+{% if submissions %}
+<ul class="grade-list">
+    {% for s in submissions %}
+        <li class="grade-item">
+            <strong>{{ s.subject }}</strong> — {{ s.filename }}
+            <br>
+            <span class="homework-meta">Submitted: {{ s.date }}</span>
+
+            {% if s.feedback %}
+                <div class="feedback-box">
+                    <h3>Teacher Feedback</h3>
+                    <p>{{ s.feedback }}</p>
+                    <p>Status: {% if s.reviewed %}Reviewed{% else %}Not Reviewed{% endif %}</p>
+                </div>
+            {% else %}
+                <p>No feedback yet.</p>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>You haven't submitted any homework yet.</p>
+{% endif %}
+{% endblock %}
