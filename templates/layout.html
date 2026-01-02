@@ -1,43 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title if title else "School Portal" }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+<div class="hero">
+    <h1>Welcome, {{ username }}!</h1>
+    <p>Your teacher dashboard</p>
+</div>
 
-<body>
-<nav class="main-nav">
-    <div class="nav-left">
-        <span class="nav-logo">🏰 School Portal</span>
+<div class="container">
+
+    <div class="card-grid">
+
+        <a href="/announcements" class="card">
+            <h3>📢 Announcements</h3>
+            <p>View and post updates</p>
+        </a>
+
+        <a href="/grades" class="card">
+            <h3>📚 Grades</h3>
+            <p>Manage student progress</p>
+        </a>
+
+        <a href="/profile" class="card">
+            <h3>🧑‍💼 Profile</h3>
+            <p>Your account details</p>
+        </a>
+
+        <a href="/create-student" class="card">
+            <h3>➕ Create Student</h3>
+            <p>Add a new student</p>
+        </a>
+
+        <a href="/students" class="card">
+            <h3>👥 View Students</h3>
+            <p>Browse all students</p>
+        </a>
+
+        <a href="/leaderboard" class="card">
+            <h3>🏆 House Leaderboard</h3>
+            <p>Track house points</p>
+        </a>
+
+        <a href="/calendar" class="card">
+            <h3>📅 Calendar</h3>
+            <p>Important dates</p>
+        </a>
+
+        <a href="/quiz" class="card">
+            <h3>🎮 Quiz Game</h3>
+            <p>Fun learning challenges</p>
+        </a>
+
     </div>
-    <div class="nav-right">
-        {% if username is defined %}
-            <span class="nav-user">Logged in as {{ username }} ({{ role }})</span>
-            <a href="{{ url_for('login') }}" class="nav-link">Logout</a>
-        {% endif %}
-    </div>
-</nav>
-    <!-- HEADER -->
-    <header class="main-header">
-        <h1 class="portal-title">🏰 School Portal</h1>
-    </header>
+</div>
 
-    <!-- MAIN CONTENT AREA -->
-    <main class="content-wrapper">
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-    </div>
-</main>
-
-    <!-- FOOTER -->
-    <footer class="main-footer">
-        <p>Made with ❤️ for learning and creativity</p>
-    </footer>
-
-</body>
-</html>
-
-
-
+<footer class="footer">
+    Made with ❤️ for learning and creativity
+</footer>
