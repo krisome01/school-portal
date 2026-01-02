@@ -38,6 +38,9 @@
 <a class="dash-btn" href="/submit-homework/{{ username }}/{{ role }}/{{ avatar }}">
     📁 Submit Homework
 </a>
+<a class="dash-btn" href="/my-homework/{{ username }}/{{ role }}/{{ avatar }}">
+    📁 Your Homework
+</a>
 {% endif %}
         {% if role == "teacher" %}
 <a class="dash-btn" href="/add-announcement/{{ username }}/{{ role }}/{{ avatar }}">
@@ -83,6 +86,7 @@
 </div>   
 
 {% endblock %}
+
 
 
 
