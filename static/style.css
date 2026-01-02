@@ -1,481 +1,110 @@
 /* ------------------------------
-   GLOBAL SCHOOL THEME
------------------------------- */
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: "Comic Sans MS", "Poppins", sans-serif;
-    background: url("background_school.png") no-repeat center center fixed;
-    background-size: cover;
-    color: #333;
+   GLOBAL RESET & BASICS
+--------------------------------*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Soft white card for all content */
-.container {
-    width: 80%;
-    max-width: 900px;
-    margin: 40px auto;
-    background: rgba(255, 255, 255, 0.92);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    backdrop-filter: blur(4px);
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #000; /* Makes ALL text black */
 }
 
 /* ------------------------------
-   HEADINGS
------------------------------- */
+   IMAGE SIZING
+--------------------------------*/
 
-h1, h2, h3 {
-    font-family: "Fredoka One", sans-serif;
-    color: #2a4b8d;
-    text-shadow: 2px 2px #d0e0ff;
+/* Small avatars (leaderboards, lists, student cards) */
+.avatar {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Profile pictures (teacher pages, student profiles) */
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Thumbnail images (small previews, grids) */
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Banner images (headers, announcements) */
+.banner {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 /* ------------------------------
    BUTTONS
------------------------------- */
-
-button, a.button {
-    background: #2a4b8d;
-    color: white;
-    padding: 10px 18px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 10px;
+--------------------------------*/
+button, .btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.2s ease;
 }
 
-button:hover, a.button:hover {
-    background: #1d3564;
+button:hover, .btn:hover {
+  background-color: #45a049;
 }
 
 /* ------------------------------
-   FORMS
------------------------------- */
-
-input, select, textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0 15px 0;
-    border-radius: 8px;
-    border: 2px solid #aac4ff;
-    font-size: 16px;
-}
-
-label {
-    font-weight: bold;
-    color: #2a4b8d;
+   CARD LAYOUTS
+--------------------------------*/
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
 }
 
 /* ------------------------------
-   STUDENT AVATAR
------------------------------- */
-
-img {
-    border-radius: 10px;
-    margin-bottom: 10px;
+   FLEX UTILITIES
+--------------------------------*/
+.flex {
+  display: flex;
+  align-items: center;
 }
 
-/* ------------------------------
-   LISTS
------------------------------- */
-
-ul {
-    background: #f7faff;
-    padding: 15px;
-    border-radius: 10px;
-    border: 2px solid #d6e4ff;
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-li {
-    padding: 6px 0;
-    font-size: 17px;
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* ------------------------------
-   NAVIGATION LINKS
------------------------------- */
+   SPACING UTILITIES
+--------------------------------*/
+.mt-1 { margin-top: 10px; }
+.mt-2 { margin-top: 20px; }
+.mt-3 { margin-top: 30px; }
 
-a {
-    color: #2a4b8d;
-    font-weight: bold;
-}
-
-a:hover {
-    color: #1d3564;
-}
-/* ------------------------------
-   HEADER
------------------------------- */
-
-.main-header {
-    background: rgba(42, 75, 141, 0.9);
-    padding: 20px;
-    text-align: center;
-    color: white;
-    border-bottom: 5px solid #d0e0ff;
-}
-
-.portal-title {
-    font-size: 40px;
-    margin: 0;
-    font-family: "Fredoka One", sans-serif;
-    text-shadow: 3px 3px #1d3564;
-}
-
-/* ------------------------------
-   MAIN CONTENT AREA
------------------------------- */
-
-.content-wrapper {
-    margin: 40px auto;
-    width: 80%;
-    max-width: 900px;
-}
-
-/* ------------------------------
-   FOOTER
------------------------------- */
-
-.main-footer {
-    margin-top: 40px;
-    padding: 15px;
-    text-align: center;
-    background: rgba(42, 75, 141, 0.9);
-    color: white;
-    border-top: 5px solid #d0e0ff;
-    font-size: 14px;
-}
-.under-construction {
-    text-align: center;
-    padding: 40px;
-}
-
-.under-construction h1 {
-    font-size: 36px;
-    color: #2a4b8d;
-    margin-bottom: 10px;
-}
-
-.under-construction p {
-    font-size: 18px;
-    margin: 8px 0;
-}
-/* ------------------------------
-   MAGICAL LOGIN PAGE
------------------------------- */
-
-.login-box {
-    background: rgba(255, 255, 255, 0.92);
-    padding: 40px;
-    border-radius: 20px;
-    width: 400px;
-    margin: 60px auto;
-    text-align: center;
-    box-shadow: 0 0 25px rgba(0,0,0,0.25);
-}
-
-.login-title {
-    font-family: "Fredoka One", sans-serif;
-    font-size: 36px;
-    color: #2a4b8d;
-    text-shadow: 2px 2px #d0e0ff;
-}
-
-.login-subtitle {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.login-form label {
-    text-align: left;
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
-    color: #2a4b8d;
-}
-
-.login-button {
-    width: 100%;
-    margin-top: 25px;
-    padding: 12px;
-    font-size: 18px;
-    border-radius: 10px;
-}
-
-.error-message {
-    color: red;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.login-icon {
-    margin-top: 20px;
-    width: 80px;
-}
-.announcement-list {
-    list-style: none;
-    padding: 0;
-}
-
-.announcement-item {
-    background: #f7faff;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
-    border: 2px solid #d6e4ff;
-}
-
-.announcement-item h3 {
-    margin-top: 0;
-}
-
-.announcement-meta {
-    font-size: 14px;
-    color: #555;
-}
-.grade-list {
-    list-style: none;
-    padding: 0;
-}
-
-.grade-item {
-    background: #f7faff;
-    border-radius: 10px;
-    padding: 12px;
-    margin-bottom: 10px;
-    border: 2px solid #d6e4ff;
-    font-size: 17px;
-}
-.event-list {
-    list-style: none;
-    padding: 0;
-}
-
-.event-item {
-    background: #f7faff;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
-    border: 2px solid #d6e4ff;
-}
-
-.event-meta {
-    font-size: 14px;
-    color: #555;
-}
-.leaderboard-list {
-    list-style: none;
-    padding: 0;
-}
-
-.leaderboard-item {
-    background: #f7faff;
-    border-radius: 10px;
-    padding: 12px;
-    margin-bottom: 10px;
-    border: 2px solid #d6e4ff;
-    font-size: 18px;
-}
-.quiz-list, .quiz-question {
-    margin-bottom: 20px;
-}
-
-.quiz-item {
-    background: #f7faff;
-    padding: 15px;
-    border-radius: 10px;
-    border: 2px solid #d6e4ff;
-    margin-bottom: 10px;
-}
-.homework-list {
-    list-style: none;
-    padding: 0;
-}
-
-.homework-item {
-    background: #f7faff;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 12px;
-    border: 2px solid #d6e4ff;
-}
-
-.homework-meta {
-    font-size: 14px;
-    color: #555;
-}
-.main-nav {
-    background: rgba(42, 75, 141, 0.95);
-    color: white;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-logo {
-    font-weight: bold;
-}
-
-.nav-right .nav-link {
-    color: white;
-    text-decoration: none;
-    margin-left: 15px;
-}
-.dash-btn {
-    display: inline-block;
-    padding: 12px 20px;
-    margin: 8px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #2a4b8d, #6a8dff);
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
-}
-
-.dash-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.25);
-}
-.dashboard-card {
-    margin-top: 30px;
-    padding: 20px;
-    border-radius: 15px;
-    background: rgba(255,255,255,0.9);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    text-align: center;
-}
-
-/* Example house colours */
-.house-Gryffindor { border: 3px solid #b30000; }
-.house-Ravenclaw { border: 3px solid #003366; }
-.house-Hufflepuff { border: 3px solid #d4af37; }
-.house-Slytherin { border: 3px solid #004d00; }
-
-.house-badge {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: #2a4b8d;
-    color: white;
-    font-weight: bold;
-}
-.small-btn {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-right: 8px;
-    border-radius: 8px;
-    background: #2a4b8d;
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.small-btn.danger {
-    background: #b30000;
-}
-.small-btn {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-right: 8px;
-    border-radius: 8px;
-    background: #2a4b8d;
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.small-btn.danger {
-    background: #b30000;
-}
-/* HOUSE COLOURS */
-.house-Gryffindor { --house-color: #b30000; }
-.house-Ravenclaw { --house-color: #003366; }
-.house-Hufflepuff { --house-color: #d4af37; }
-.house-Slytherin { --house-color: #004d00; }
-
-/* HOUSE BANNER */
-.house-banner {
-    width: 100%;
-    padding: 20px;
-    text-align: center;
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    background: var(--house-color);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    animation: bannerFloat 4s ease-in-out infinite;
-}
-
-@keyframes bannerFloat {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-    100% { transform: translateY(0); }
-}
-.dash-btn {
-    display: inline-block;
-    padding: 14px 22px;
-    margin: 10px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, var(--house-color), #6a8dff);
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    transition: 0.2s ease;
-}
-
-.dash-btn:hover {
-    transform: translateY(-4px) scale(1.03);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-}
-.profile-card {
-    background: rgba(255,255,255,0.9);
-    padding: 25px;
-    border-radius: 18px;
-    border: 3px solid var(--house-color);
-    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-    max-width: 500px;
-    margin: auto;
-    text-align: center;
-}
-.dashboard-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 20px;
-}
-.sparkles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.6) 2px, transparent 2px);
-    background-size: 40px 40px;
-    animation: sparkleMove 6s linear infinite;
-}
-
-@keyframes sparkleMove {
-    from { background-position: 0 0; }
-    to { background-position: 200px 200px; }
-}
-.feedback-box {
-    background: rgba(255,255,255,0.9);
-    padding: 15px;
-    border-left: 5px solid #2a4b8d;
-    margin-top: 15px;
-    border-radius: 10px;
-}
+.mb-1 { margin-bottom: 10px; }
+.mb-2 { margin-bottom: 20px; }
+.mb-3 { margin-bottom: 30px; }
