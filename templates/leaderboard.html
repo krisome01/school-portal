@@ -1,46 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Leaderboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+{% extends "layout.html" %}
+{% block title %}Leaderboard{% endblock %}
 
-<body>
-    <div class="leaderboard-container fade-in">
+{% block content %}
+<h1>🏆 Leaderboard</h1>
+<p class="subtitle">Top performers across the school.</p>
 
-        <h1>🏆 House Leaderboard</h1>
-        <p class="subtitle">Celebrating effort, progress, and magical learning</p>
+<h2>🎮 Highest Quiz Scores</h2>
+<ul class="leaderboard-list">
+    {% for name, score in high_scores %}
+        <li class="leaderboard-item">
+            <strong>{{ name }}</strong>: {{ score }}
+        </li>
+    {% endfor %}
+</ul>
 
-        {% for entry in leaderboard %}
-        <div class="leaderboard-card house-{{ entry.house }}">
+<h2>⭐ Best Behaviour</h2>
+<ul class="leaderboard-list">
+    {% for name, points in behaviour %}
+        <li class="leaderboard-item">
+            <strong>{{ name }}</strong>: {{ points }} points
+        </li>
+    {% endfor %}
+</ul>
 
-            <div class="leaderboard-left">
-                <img src="{{ url_for('static', filename=entry.avatar) }}" class="avatar">
-            </div>
+<h2>📅 Best Attendance</h2>
+<ul class="leaderboard-list">
+    {% for name, days in attendance %}
+        <li class="leaderboard-item">
+            <strong>{{ name }}</strong>: {{ days }} days present
+        </li>
+    {% endfor %}
+</ul>
 
-            <div class="leaderboard-right">
-                <h2>{{ entry.username }}</h2>
+<h2>🏅 Most House Points</h2>
+<ul class="leaderboard-list">
+    {% for name, points in house_points %}
+        <li class="leaderboard-item">
+            <strong>{{ name }}</strong>: {{ points }} points
+        </li>
+    {% endfor %}
+</ul>
 
-                <span class="house-badge {{ entry.house }}">
-                    {{ entry.house|capitalize }} House
-                </span>
-
-                <p class="score">Points: {{ entry.high_score }}</p>
-
-                {% if entry.badge != "None" %}
-                <p class="earned-badge">Badge: {{ entry.badge }}</p>
-                {% endif %}
-            </div>
-
-        </div>
-        {% endfor %}
-
-        <div class="back-button">
-            <a href="{{ url_for('dashboard', username=username, role=role, avatar=avatar) }}">
-                ← Back to Dashboard
-            </a>
-        </div>
-
-    </div>
-</body>
-</html>
+{% endblock %}
