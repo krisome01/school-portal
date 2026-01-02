@@ -699,12 +699,66 @@ def view_homework(username, role, avatar):
         avatar=avatar,
         submissions=submissions
     )
+@app.route("/delete-announcement/<int:index>/<username>/<role>/<avatar>")
+def delete_announcement(index, username, role, avatar):
+    if role != "teacher":
+        return "Access denied.", 403
+
+    data = load_json("announcements.json")
+    announcements = data.get("announcements", [])
+
+    if 0 <= index < len(announcements):
+        announcements.pop(index)
+        data["announcements"] = announcements
+        save_json("announcements.json", data)
+
+    return redirect(url_for("announcements",
+                            username=username,
+                            role=role,
+                            avatar=avatar))
+@app.route("/edit-announcement/<int:index>/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def edit_announcement(index, username, role, avatar):
+    if role != "teacher":
+        return "Access denied.", 403
+
+    data = load_json("announcements.json")
+    announcements = data.get("announcements", [])
+
+    if index < 0 or index >= len(announcements):
+        return "Announcement not found."
+
+    announcement = announcements[index]
+    message = None
+
+    if request.method == "POST":
+        title = request.form.get("title")
+        message_text = request.form.get("message")
+
+        if not title or not message_text:
+            message = "Please fill in all fields."
+        else:
+            announcement["title"] = title
+            announcement["message"] = message_text
+            save_json("announcements.json", data)
+            return redirect(url_for("announcements",
+                                    username=username,
+                                    role=role,
+                                    avatar=avatar))
+
+    return render_template("edit_announcement.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           announcement=announcement,
+                           index=index,
+                           message=message)
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
