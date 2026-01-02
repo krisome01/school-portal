@@ -1,23 +1,28 @@
 {% extends "layout.html" %}
+{% block title %}Quizzes{% endblock %}
+
 {% block content %}
+<h1>🎮 Quizzes</h1>
+<p class="subtitle">Choose a quiz to begin.</p>
 
-<h1>🎮 Quiz Time!</h1>
+{% if role == "teacher" %}
+<a class="button" href="{{ url_for('create_quiz', username=username, role=role, avatar=avatar) }}">
+    ➕ Create Quiz
+</a>
+{% endif %}
 
-<form method="POST">
-    <p class="question">{{ question.text }}</p>
-
-    {% for option in question.options %}
-        <label>
-            <input type="radio" name="answer" value="{{ option }}" required>
-            {{ option }}
-        </label><br>
+{% if quizzes %}
+<ul class="quiz-list">
+    {% for q in quizzes %}
+        <li class="quiz-item">
+            <strong>{{ q.title }}</strong>
+            <a class="button" href="{{ url_for('take_quiz', quiz_id=q.id, username=username, role=role, avatar=avatar) }}">
+                Start Quiz
+            </a>
+        </li>
     {% endfor %}
-
-    <button type="submit">Submit</button>
-
-    {% if message %}
-        <p class="message">{{ message }}</p>
-    {% endif %}
-</form>
-
+</ul>
+{% else %}
+<p>No quizzes available yet.</p>
+{% endif %}
 {% endblock %}
