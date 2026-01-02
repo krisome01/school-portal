@@ -253,3 +253,20 @@ a:hover {
     border: 2px solid #d6e4ff;
     font-size: 17px;
 }
+.event-list {
+    list-style: none;
+    padding: 0;
+}
+
+.event-item {
+    background: #f7faff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 2px solid #d6e4ff;
+}
+
+.event-meta {
+    font-size: 14px;
+    color: #555;
+}
