@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}Edit Quiz{% endblock %}
+
+{% block content %}
+<h1>✏️ Edit Quiz</h1>
+
+<form method="POST" class="profile-form">
+    <label>Quiz Title</label>
+    <input type="text" name="title" value="{{ quiz.title }}" required>
+
+    <label>Question</label>
+    <input type="text" name="question" value="{{ question.question }}" required>
+
+    <label>Option 1</label>
+    <input type="text" name="opt1" value="{{ question.options[0] }}" required>
+
+    <label>Option 2</label>
+    <input type="text" name="opt2" value="{{ question.options[1] }}" required>
+
+    <label>Option 3</label>
+    <input type="text" name="opt3" value="{{ question.options[2] }}" required>
+
+    <label>Option 4</label>
+    <input type="text" name="opt4" value="{{ question.options[3] }}" required>
+
+    <label>Correct Answer</label>
+    <input type="text" name="answer" value="{{ question.answer }}" required>
+
+    <button type="submit">Save Changes</button>
+</form>
+{% endblock %}
