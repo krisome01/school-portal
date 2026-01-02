@@ -8,13 +8,19 @@
 {% if grades %}
     <ul class="grade-list">
         {% for g in grades %}
-            <li class="grade-item">
-                <strong>{{ g.subject }}</strong>: {{ g.grade }} ({{ g.date }})
-            </li>
-        {% endfor %}
+    <li class="grade-item">
+        <strong>{{ g.subject }}</strong>: {{ g.grade }} ({{ g.date }})
+
+        {% if role == "teacher" %}
+            <a class="small-btn" href="{{ url_for('edit_grade', student=username, index=loop.index0, username=username, role=role, avatar=avatar) }}">✏️ Edit</a>
+            <a class="small-btn danger" href="{{ url_for('delete_grade', student=username, index=loop.index0, username=username, role=role, avatar=avatar) }}">🗑 Delete</a>
+        {% endif %}
+    </li>
+{% endfor %}
     </ul>
 {% else %}
     <p>No grades recorded yet.</p>
 {% endif %}
 {% endblock %}
+
 
