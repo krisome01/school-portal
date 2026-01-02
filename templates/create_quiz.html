@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}Create Quiz{% endblock %}
+
+{% block content %}
+<h1>➕ Create Quiz</h1>
+
+{% if message %}
+<p class="error">{{ message }}</p>
+{% endif %}
+
+<form method="POST" class="profile-form">
+    <label>Quiz Title</label>
+    <input type="text" name="title" required>
+
+    <label>Question</label>
+    <input type="text" name="question" required>
+
+    <label>Option 1</label>
+    <input type="text" name="opt1" required>
+
+    <label>Option 2</label>
+    <input type="text" name="opt2" required>
+
+    <label>Option 3</label>
+    <input type="text" name="opt3" required>
+
+    <label>Option 4</label>
+    <input type="text" name="opt4" required>
+
+    <label>Correct Answer (must match exactly)</label>
+    <input type="text" name="answer" required>
+
+    <button type="submit">Create Quiz</button>
+</form>
+{% endblock %}
