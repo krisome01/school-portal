@@ -752,12 +752,67 @@ def edit_announcement(index, username, role, avatar):
                            announcement=announcement,
                            index=index,
                            message=message)
+@app.route("/delete-grade/<student>/<int:index>/<username>/<role>/<avatar>")
+def delete_grade(student, index, username, role, avatar):
+    if role != "teacher":
+        return "Access denied.", 403
+
+    data = load_json("grades.json")
+    all_grades = data.get("grades", {})
+
+    if student in all_grades and 0 <= index < len(all_grades[student]):
+        all_grades[student].pop(index)
+        data["grades"] = all_grades
+        save_json("grades.json", data)
+
+    return redirect(url_for("grades",
+                            username=username,
+                            role=role,
+                            avatar=avatar))
+@app.route("/edit-grade/<student>/<int:index>/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def edit_grade(student, index, username, role, avatar):
+    if role != "teacher":
+        return "Access denied.", 403
+
+    data = load_json("grades.json")
+    all_grades = data.get("grades", {})
+
+    if student not in all_grades or index >= len(all_grades[student]):
+        return "Grade not found."
+
+    grade_entry = all_grades[student][index]
+    message = None
+
+    if request.method == "POST":
+        subject = request.form.get("subject")
+        grade = request.form.get("grade")
+
+        if not subject or not grade:
+            message = "Please fill in all fields."
+        else:
+            grade_entry["subject"] = subject
+            grade_entry["grade"] = grade
+            save_json("grades.json", data)
+            return redirect(url_for("grades",
+                                    username=username,
+                                    role=role,
+                                    avatar=avatar))
+
+    return render_template("edit_grade.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           student=student,
+                           grade_entry=grade_entry,
+                           index=index,
+                           message=message)
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
