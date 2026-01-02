@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}Give Feedback{% endblock %}
+
+{% block content %}
+<h1>📝 Give Feedback</h1>
+
+<p><strong>Student:</strong> {{ submission.student }}</p>
+<p><strong>File:</strong> {{ submission.filename }}</p>
+<p><strong>Subject:</strong> {{ submission.subject }}</p>
+<p><strong>Date:</strong> {{ submission.date }}</p>
+
+{% if message %}
+<p class="success">{{ message }}</p>
+{% endif %}
+
+<form method="POST" class="profile-form">
+    <label>Feedback</label>
+    <textarea name="feedback" rows="5">{{ submission.feedback }}</textarea>
+
+    <label>
+        <input type="checkbox" name="reviewed" {% if submission.reviewed %}checked{% endif %}>
+        Mark as Reviewed
+    </label>
+
+    <button type="submit">Save Feedback</button>
+</form>
+{% endblock %}
