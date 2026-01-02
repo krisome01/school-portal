@@ -283,3 +283,14 @@ a:hover {
     border: 2px solid #d6e4ff;
     font-size: 18px;
 }
+.quiz-list, .quiz-question {
+    margin-bottom: 20px;
+}
+
+.quiz-item {
+    background: #f7faff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #d6e4ff;
+    margin-bottom: 10px;
+}
