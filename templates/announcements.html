@@ -1,5 +1,30 @@
 {% extends "layout.html" %}
+{% block title %}Announcements{% endblock %}
+
 {% block content %}
 <h1>📢 Announcements</h1>
-<p>This page is under construction.</p>
+<p class="subtitle">Stay up to date with the latest news.</p>
+
+{% if role == "teacher" %}
+    <a class="button" href="{{ url_for('add_announcement', username=username, role=role, avatar=avatar) }}">
+        ➕ Add Announcement
+    </a>
+{% endif %}
+
+{% if announcements %}
+    <ul class="announcement-list">
+        {% for a in announcements %}
+            <li class="announcement-item">
+                <h3>{{ a.title }}</h3>
+                <p>{{ a.message }}</p>
+                <p class="announcement-meta">
+                    Posted by {{ a.author }} on {{ a.date }}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No announcements yet. Check back soon!</p>
+{% endif %}
 {% endblock %}
+
