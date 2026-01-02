@@ -240,3 +240,16 @@ a:hover {
     font-size: 14px;
     color: #555;
 }
+.grade-list {
+    list-style: none;
+    padding: 0;
+}
+
+.grade-item {
+    background: #f7faff;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 2px solid #d6e4ff;
+    font-size: 17px;
+}
