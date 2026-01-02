@@ -370,3 +370,17 @@ a:hover {
     color: white;
     font-weight: bold;
 }
+.small-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-right: 8px;
+    border-radius: 8px;
+    background: #2a4b8d;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.small-btn.danger {
+    background: #b30000;
+}
