@@ -9,11 +9,10 @@
     <ul class="homework-list">
         {% for s in submissions %}
     <li class="homework-item">
-        <strong>{{ s.student }}</strong> submitted <em>{{ s.filename }}</em>
+        <strong>{{ s.student }}</strong> submitted <em>{{ s.filename }}</em> for <strong>{{ s.subject }}</strong>
         <br>
         <span class="homework-meta">Date: {{ s.date }}</span>
-
-        <a class="small-btn danger" href="{{ url_for('delete_homework', index=loop.index0, username=username, role=role, avatar=avatar) }}">🗑 Delete</a>
+        <a class="small-btn" href="/download/{{ s.filename }}">⬇️ Download</a>
     </li>
 {% endfor %}
     </ul>
