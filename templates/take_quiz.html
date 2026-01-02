@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Take Quiz{% endblock %}
+
+{% block content %}
+<h1>{{ quiz.title }}</h1>
+
+<form method="POST">
+    {% for q in quiz.questions %}
+        <div class="quiz-question">
+            <h3>{{ q.question }}</h3>
+            {% for opt in q.options %}
+                <label>
+                    <input type="radio" name="q{{ loop.index0 }}" value="{{ opt }}" required>
+                    {{ opt }}
+                </label><br>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <button type="submit">Submit Answers</button>
+</form>
+{% endblock %}
