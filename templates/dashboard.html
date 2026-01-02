@@ -26,22 +26,24 @@
     👤 Your Profile
 </a>
         {% if role == "student" %}
-    <a class="dash-btn" href="/upload-homework/{{ username }}/{{ role }}/{{ avatar }}">
+<a class="dash-btn" href="/upload-homework/{{ username }}/{{ role }}/{{ avatar }}">
         📤 Submit Homework
-    </a>
-    <a class="dash-btn" href="/behaviour/{{ username }}/{{ role }}/{{ avatar }}">
+ </a>
+<a class="dash-btn" href="/behaviour/{{ username }}/{{ role }}/{{ avatar }}">
     ⭐ Your Behaviour
-    </a>
-    <a class="dash-btn" href="/attendance/{{ username }}/{{ role }}/{{ avatar }}">
+ </a>
+<a class="dash-btn" href="/attendance/{{ username }}/{{ role }}/{{ avatar }}">
     📅 Your Attendance
-    </a>
+</a>
+<a class="dash-btn" href="/submit-homework/{{ username }}/{{ role }}/{{ avatar }}">
+    📁 Submit Homework
+</a>
 {% endif %}
         {% if role == "teacher" %}
 <a class="dash-btn" href="/add-announcement/{{ username }}/{{ role }}/{{ avatar }}">
         ➕ Add Announcement
  </a>
-
- <a class="dash-btn" href="/add-grade/{{ username }}/{{ role }}/{{ avatar }}">
+<a class="dash-btn" href="/add-grade/{{ username }}/{{ role }}/{{ avatar }}">
         ➕ Add Grade
 </a>
 <a class="dash-btn" href="/calendar/{{ username }}/{{ role }}/{{ avatar }}">
@@ -81,6 +83,7 @@
 </div>   
 
 {% endblock %}
+
 
 
 
