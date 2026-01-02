@@ -398,3 +398,77 @@ a:hover {
 .small-btn.danger {
     background: #b30000;
 }
+/* HOUSE COLOURS */
+.house-Gryffindor { --house-color: #b30000; }
+.house-Ravenclaw { --house-color: #003366; }
+.house-Hufflepuff { --house-color: #d4af37; }
+.house-Slytherin { --house-color: #004d00; }
+
+/* HOUSE BANNER */
+.house-banner {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    background: var(--house-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    animation: bannerFloat 4s ease-in-out infinite;
+}
+
+@keyframes bannerFloat {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+}
+.dash-btn {
+    display: inline-block;
+    padding: 14px 22px;
+    margin: 10px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--house-color), #6a8dff);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    transition: 0.2s ease;
+}
+
+.dash-btn:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+.profile-card {
+    background: rgba(255,255,255,0.9);
+    padding: 25px;
+    border-radius: 18px;
+    border: 3px solid var(--house-color);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+}
+.dashboard-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+.sparkles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.6) 2px, transparent 2px);
+    background-size: 40px 40px;
+    animation: sparkleMove 6s linear infinite;
+}
+
+@keyframes sparkleMove {
+    from { background-position: 0 0; }
+    to { background-position: 200px 200px; }
+}
