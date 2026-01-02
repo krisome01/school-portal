@@ -1,5 +1,28 @@
 {% extends "layout.html" %}
+{% block title %}School Calendar{% endblock %}
+
 {% block content %}
-<h1>📅 Calendar</h1>
-<p>School calendar will appear here soon.</p>
+<h1>📅 School Calendar</h1>
+<p class="subtitle">Upcoming events and important dates.</p>
+
+{% if role == "teacher" %}
+    <a class="button" href="{{ url_for('add_event', username=username, role=role, avatar=avatar) }}">
+        ➕ Add Event
+    </a>
+{% endif %}
+
+{% if events %}
+    <ul class="event-list">
+        {% for e in events %}
+            <li class="event-item">
+                <h3>{{ e.title }}</h3>
+                <p><strong>Date:</strong> {{ e.date }}</p>
+                <p>{{ e.description }}</p>
+                <p class="event-meta">Added by {{ e.created_by }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No events yet. Check back soon!</p>
+{% endif %}
 {% endblock %}
