@@ -44,6 +44,9 @@
 </a>
 <a class="dash-btn" href="/view-students/{{ username }}/{{ role }}/{{ avatar }}">
     👥 View All Students
+</a>
+<a href="{{ url_for('house_leaderboard', username=username, role=role, avatar=avatar) }}">
+    View House Leaderboard
 </a>        
 {% endif %}
 
@@ -61,6 +64,7 @@
 </div>   
 
 {% endblock %}
+
 
 
 
