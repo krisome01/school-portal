@@ -716,6 +716,7 @@ def delete_announcement(index, username, role, avatar):
                             username=username,
                             role=role,
                             avatar=avatar))
+
 @app.route("/edit-announcement/<int:index>/<username>/<role>/<avatar>", methods=["GET", "POST"])
 def edit_announcement(index, username, role, avatar):
     if role != "teacher":
@@ -752,6 +753,7 @@ def edit_announcement(index, username, role, avatar):
                            announcement=announcement,
                            index=index,
                            message=message)
+
 @app.route("/delete-grade/<student>/<int:index>/<username>/<role>/<avatar>")
 def delete_grade(student, index, username, role, avatar):
     if role != "teacher":
@@ -769,6 +771,7 @@ def delete_grade(student, index, username, role, avatar):
                             username=username,
                             role=role,
                             avatar=avatar))
+
 @app.route("/edit-grade/<student>/<int:index>/<username>/<role>/<avatar>", methods=["GET", "POST"])
 def edit_grade(student, index, username, role, avatar):
     if role != "teacher":
@@ -806,6 +809,7 @@ def edit_grade(student, index, username, role, avatar):
                            grade_entry=grade_entry,
                            index=index,
                            message=message)
+
 @app.route("/delete-quiz/<int:quiz_id>/<username>/<role>/<avatar>")
 def delete_quiz(quiz_id, username, role, avatar):
     if role != "teacher":
@@ -823,6 +827,7 @@ def delete_quiz(quiz_id, username, role, avatar):
                             username=username,
                             role=role,
                             avatar=avatar))
+
 @app.route("/edit-quiz/<int:quiz_id>/<username>/<role>/<avatar>", methods=["GET", "POST"])
 def edit_quiz(quiz_id, username, role, avatar):
     if role != "teacher":
@@ -861,6 +866,7 @@ def edit_quiz(quiz_id, username, role, avatar):
                            avatar=avatar,
                            quiz=quiz,
                            question=question)
+
 @app.route("/delete-homework/<int:index>/<username>/<role>/<avatar>")
 def delete_homework(index, username, role, avatar):
     if role != "teacher":
@@ -879,12 +885,132 @@ def delete_homework(index, username, role, avatar):
                             role=role,
                             avatar=avatar))
 
+@app.route("/behaviour/<username>/<role>/<avatar>")
+def behaviour(username, role, avatar):
+    data = load_json("behaviour.json")
+    behaviour_data = data.get("behaviour", {})
+    user_points = behaviour_data.get(username, [])
+    return render_template("behaviour.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           points=user_points)
+
+@app.route("/add-behaviour/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def add_behaviour(username, role, avatar):
+    if role != "teacher":
+        return "Access denied.", 403
+
+    data = load_json("behaviour.json")
+    behaviour_data = data.get("behaviour", {})
+
+    message = None
+
+    if request.method == "POST":
+        student = request.form.get("student")
+        points = request.form.get("points")
+        reason = request.form.get("reason")
+
+        if not student or not points or not reason:
+            message = "Please fill in all fields."
+        else:
+            entry = {
+                "points": int(points),
+                "reason": reason,
+                "date": datetime.now().strftime("%Y-%m-%d")
+            }
+
+            if student not in behaviour_data:
+                behaviour_data[student] = []
+
+            behaviour_data[student].append(entry)
+            data["behaviour"] = behaviour_data
+            save_json("behaviour.json", data)
+
+            message = "Behaviour points added!"
+
+    return render_template("add_behaviour.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           message=message)
+
+@app.route("/attendance/<username>/<role>/<avatar>")
+def attendance(username, role, avatar):
+    data = load_json("attendance.json")
+    attendance_data = data.get("attendance", {})
+    user_days = attendance_data.get(username, [])
+    return render_template("attendance.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           days=user_days)
+
+@app.route("/mark-attendance/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def mark_attendance(username, role, avatar):
+    if role != "teacher":
+        return "Access denied.", 403
+
+    data = load_json("attendance.json")
+    attendance_data = data.get("attendance", {})
+
+    message = None
+
+    if request.method == "POST":
+        student = request.form.get("student")
+
+        if not student:
+            message = "Please enter a student username."
+        else:
+            if student not in attendance_data:
+                attendance_data[student] = []
+
+            attendance_data[student].append(datetime.now().strftime("%Y-%m-%d"))
+            data["attendance"] = attendance_data
+            save_json("attendance.json", data)
+
+            message = "Attendance marked!"
+
+    return render_template("mark_attendance.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           message=message)
+
+@app.route("/leaderboard/<username>/<role>/<avatar>")
+def leaderboard(username, role, avatar):
+    # Load behaviour + attendance JSON
+    behaviour_data = load_json("behaviour.json").get("behaviour", {})
+    attendance_data = load_json("attendance.json").get("attendance", {})
+
+    # Behaviour totals
+    behaviour_sorted = sorted(
+        [(student, sum(entry["points"] for entry in entries))
+         for student, entries in behaviour_data.items()],
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    # Attendance totals
+    attendance_sorted = sorted(
+        [(student, len(days)) for student, days in attendance_data.items()],
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    return render_template("leaderboard.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           behaviour=behaviour_sorted,
+                           attendance=attendance_sorted)
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
