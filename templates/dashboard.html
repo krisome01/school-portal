@@ -47,6 +47,9 @@
 </a>
 <a href="{{ url_for('house_leaderboard', username=username, role=role, avatar=avatar) }}">
     View House Leaderboard
+</a>
+<a class="dash-btn" href="/view-homework/{{ username }}/{{ role }}/{{ avatar }}">
+    📚 View Homework Submissions
 </a>        
 {% endif %}
 
@@ -64,6 +67,7 @@
 </div>   
 
 {% endblock %}
+
 
 
 
