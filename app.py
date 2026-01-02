@@ -878,6 +878,44 @@ def delete_homework(index, username, role, avatar):
                             username=username,
                             role=role,
                             avatar=avatar))
+@app.route("/edit-quiz/<int:quiz_id>/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def edit_quiz(quiz_id, username, role, avatar):
+    if role != "teacher":
+        return "Access denied.", 403
+
+    data = load_json("quizzes.json")
+    quizzes = data.get("quizzes", [])
+
+    quiz = next((q for q in quizzes if q["id"] == quiz_id), None)
+    if not quiz:
+        return "Quiz not found."
+
+    question = quiz["questions"][0]  # your quizzes currently have 1 question
+
+    if request.method == "POST":
+        quiz["title"] = request.form.get("title")
+        question["question"] = request.form.get("question")
+        question["options"] = [
+            request.form.get("opt1"),
+            request.form.get("opt2"),
+            request.form.get("opt3"),
+            request.form.get("opt4")
+        ]
+        question["answer"] = request.form.get("answer")
+
+        save_json("quizzes.json", data)
+
+        return redirect(url_for("quiz_home",
+                                username=username,
+                                role=role,
+                                avatar=avatar))
+
+    return render_template("edit_quiz.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           quiz=quiz,
+                           question=question)
 
 # -----------------------------------
 # Run App
@@ -885,6 +923,7 @@ def delete_homework(index, username, role, avatar):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
