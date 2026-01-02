@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-
+<div class="house-banner house-{{ user.house }}">
+    {{ user.house|capitalize }} House
+</div>
 <div class="avatar-wrapper">
     <img src="{{ url_for('static', filename=avatar) }}" class="avatar {{ role }}">
     <span class="role-badge">
@@ -79,6 +81,7 @@
 </div>   
 
 {% endblock %}
+
 
 
 
