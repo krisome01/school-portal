@@ -443,9 +443,9 @@ def grades(username, role, avatar):
                        grades=user_grades)
     
 @app.route("/add-grade/<username>/<role>/<avatar>", methods=["GET", "POST"])
- def add_grade(username, role, avatar):
+def add_grade(username, role, avatar):
     if role != "teacher":
-         return "Access denied. Only teachers can add grades.", 403
+        return "Access denied. Only teachers can add grades.", 403
 
     data = load_json("grades.json")
     all_grades = data.get("grades", {})
@@ -469,11 +469,15 @@ def grades(username, role, avatar):
                 all_grades[student].append(entry)
             else:
                 all_grades[student] = [entry]
-            data["grades"] = all_grades
-            save_json("grades.json", data)
-            return redirect(url_for("grades", username=username, role=role, avatar=avatar))
 
-    return render_template("add_grade.html", username=username, role=role, avatar=avatar, message=message)
+        data["grades"] = all_grades
+        save_json("grades.json", data)
+
+    return render_template("add_grade.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           message=message)
 
 @app.route("/calendar/<username>/<role>/<avatar>")
 def calendar_page(username, role, avatar):
@@ -1108,6 +1112,7 @@ def my_homework(username, role, avatar):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
