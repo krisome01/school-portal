@@ -651,12 +651,61 @@ def take_quiz(quiz_id, username, role, avatar):
         avatar=avatar,
         quiz=quiz
     )
+@app.route("/upload-homework/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def upload_homework(username, role, avatar):
+    if role != "student":
+        return "Access denied. Only students can upload homework.", 403
+
+    data = load_json("homework.json")
+    submissions = data.get("homework", [])
+
+    message = None
+
+    if request.method == "POST":
+        filename = request.form.get("filename")
+
+        if not filename:
+            message = "Please enter a filename."
+        else:
+            new_submission = {
+                "student": username,
+                "filename": filename,
+                "date": datetime.now().strftime("%Y-%m-%d")
+            }
+            submissions.append(new_submission)
+            data["homework"] = submissions
+            save_json("homework.json", data)
+            message = "Homework submitted successfully!"
+
+    return render_template(
+        "upload_homework.html",
+        username=username,
+        role=role,
+        avatar=avatar,
+        message=message
+    )
+@app.route("/view-homework/<username>/<role>/<avatar>")
+def view_homework(username, role, avatar):
+    if role != "teacher":
+        return "Access denied. Only teachers can view homework.", 403
+
+    data = load_json("homework.json")
+    submissions = data.get("homework", [])
+
+    return render_template(
+        "view_homework.html",
+        username=username,
+        role=role,
+        avatar=avatar,
+        submissions=submissions
+    )
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
