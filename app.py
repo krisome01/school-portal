@@ -1,19 +1,16 @@
 from werkzeug.utils import secure_filename
+from flask import Flask, render_template, request, redirect, url_for
 import os
-app = Flask(__name__)
-UPLOAD_FOLDER = "uploads"
-ALLOWED_EXTENSIONS = {"pdf", "docx", "jpg", "png", "txt"}
+from datetime import datetime
+import json
 
+UPLOAD_FOLDER = "static/uploads"
+
+app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
-
-from flask import Flask, render_template, request, redirect, url_for
-from datetime import datetime
-
-import json
-import os
 
 def load_json(filename):
     path = os.path.join("data", filename)
@@ -1111,6 +1108,7 @@ def my_homework(username, role, avatar):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
