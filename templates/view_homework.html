@@ -13,6 +13,9 @@
         <br>
         <span class="homework-meta">Date: {{ s.date }}</span>
         <a class="small-btn" href="/download/{{ s.filename }}">⬇️ Download</a>
+        <a class="small-btn" href="{{ url_for('give_feedback', index=loop.index0, username=username, role=role, avatar=avatar) }}">
+    📝 Give Feedback
+        </a>
     </li>
 {% endfor %}
     </ul>
