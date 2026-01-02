@@ -1,5 +1,18 @@
 {% extends "layout.html" %}
+{% block title %}Submit Homework{% endblock %}
+
 {% block content %}
 <h1>📤 Submit Homework</h1>
-<p>Homework upload will be added soon.</p>
+<p class="subtitle">Upload your homework file below.</p>
+
+{% if message %}
+    <p class="success">{{ message }}</p>
+{% endif %}
+
+<form method="POST" class="profile-form">
+    <label>Homework File Name</label>
+    <input type="text" name="filename" placeholder="example: maths_homework.pdf" required>
+
+    <button type="submit">Submit Homework</button>
+</form>
 {% endblock %}
