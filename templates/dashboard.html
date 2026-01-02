@@ -1,1 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ role|capitalize }} Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- HERO SECTION -->
+    <div class="hero">
+        <h1>Welcome, {{ username }}!</h1>
+        <p>Your {{ role }} dashboard</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <div class="card-grid">
+
+            {% if role == "teacher" %}
+            <!-- -------------------------
+                 TEACHER DASHBOARD
+            -------------------------- -->
+
+            <a href="{{ url_for('announcements') }}" class="card">
+                <h3>📢 Announcements</h3>
+                <p>View and post updates</p>
+            </a>
+
+            <a href="{{ url_for('grades') }}" class="card">
+                <h3>📚 Grades</h3>
+                <p>Manage student progress</p>
+            </a>
+
+            <a href="{{ url_for('profile') }}" class="card">
+                <h3>🧑‍💼 Your Profile</h3>
+                <p>Update your details</p>
+            </a>
+
+            <a href="{{ url_for('add_announcement') }}" class="card">
+                <h3>➕ Add Announcement</h3>
+                <p>Create a new update</p>
+            </a>
+
+            <a href="{{ url_for('add_grade') }}" class="card">
+                <h3>➕ Add Grade</h3>
+                <p>Record student marks</p>
+            </a>
+
+            <a href="{{ url_for('calendar') }}" class="card">
+                <h3>📅 Calendar</h3>
+                <p>Important dates</p>
+            </a>
+
+            <a href="{{ url_for('create_student') }}" class="card">
+                <h3>➕ Create Student</h3>
+                <p>Add a new student</p>
+            </a>
+
+            <a href="{{ url_for('view_students') }}" class="card">
+                <h3>👥 View Students</h3>
+                <p>Browse all students</p>
+            </a>
+
+            <a href="{{ url_for('leaderboard') }}" class="card">
+                <h3>🏆 House Leaderboard</h3>
+                <p>Track house points</p>
+            </a>
+
+            <a href="{{ url_for('homework_submissions') }}" class="card">
+                <h3>📚 Homework</h3>
+                <p>View submissions</p>
+            </a>
+
+            <a href="{{ url_for('behaviour_points') }}" class="card">
+                <h3>➕ Behaviour Points</h3>
+                <p>Award or remove points</p>
+            </a>
+
+            <a href="{{ url_for('attendance') }}" class="card">
+                <h3>✔️ Attendance</h3>
+                <p>Mark daily attendance</p>
+            </a>
+
+            <a href="{{ url_for('quiz_game') }}" class="card">
+                <h3>🎮 Quiz Game</h3>
+                <p>Fun learning challenges</p>
+            </a>
+
+            {% else %}
+            <!-- -------------------------
+                 STUDENT DASHBOARD
+            -------------------------- -->
+
+            <a href="{{ url_for('announcements') }}" class="card">
+                <h3>📢 Announcements</h3>
+                <p>Latest school updates</p>
+            </a>
+
+            <a href="{{ url_for('grades') }}" class="card">
+                <h3>📚 Your Grades</h3>
+                <p>Check your progress</p>
+            </a>
+
+            <a href="{{ url_for('profile') }}" class="card">
+                <h3>🧑‍🎓 Your Profile</h3>
+                <p>View your details</p>
+            </a>
+
+            <a href="{{ url_for('calendar') }}" class="card">
+                <h3>📅 Calendar</h3>
+                <p>Important dates</p>
+            </a>
+
+            <a href="{{ url_for('leaderboard') }}" class="card">
+                <h3>🏆 House Leaderboard</h3>
+                <p>See your house ranking</p>
+            </a>
+
+            <a href="{{ url_for('homework') }}" class="card">
+                <h3>📚 Homework</h3>
+                <p>View your assignments</p>
+            </a>
+
+            <a href="{{ url_for('quiz_game') }}" class="card">
+                <h3>🎮 Quiz Game</h3>
+                <p>Play and learn</p>
+            </a>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        Made with ❤️ for learning and creativity
+    </footer>
+
+</body>
+</html>
 
