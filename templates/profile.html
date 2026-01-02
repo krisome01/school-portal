@@ -4,12 +4,7 @@
 <div class="profile-container">
 
     <!-- Avatar + Badge -->
-    <div class="avatar-wrapper">
-        <img src="{{ url_for('static', filename=avatar) }}" class="avatar {{ role }}">
-        <span class="role-badge">
-            {% if role == "student" %}🎓{% else %}⭐{% endif %}
-        </span>
-    </div>
+    
 
     <h1 class="profile-name">{{ username }}</h1>
     <p class="profile-role">
@@ -22,7 +17,13 @@
 
     <!-- Profile Card -->
     <div class="profile-card">
-
+        <div class="avatar-wrapper">
+            <img src="{{ url_for('static', filename=avatar) }}" class="avatar {{ role }}">
+            <span class="role-badge">
+                {% if role == "student" %}🎓{% else %}⭐{% endif %}
+            </span>
+            <a class="small-btn" href="/choose-avatar/{{ username }}/{{ role }}/">🖼 Change Avatar</a>
+    </div>
      <h2 class="section-title">Account Details</h2>
       <h2 class="section-title">Edit Your Profile</h2>
 
@@ -54,17 +55,33 @@
         <div class="info-row">
             <span class="info-label">Status:</span>
             <span class="info-value active">Active</span>
-        </div> <!-- end of profile-card -->
+            <h2 class="section-title">Your Stats</h2>
 
-        <a class="change-avatar-btn" href="/choose-avatar/{{ username }}/{{ role }}/{{ avatar }}">
-    Change Avatar
-</a>
-     <p><strong>Badge:</strong> {{ user.badge }}</p> 
-    </div>
+<div class="info-row">
+    <span class="info-label">Behaviour Points:</span>
+    <span class="info-value">{{ user.behaviour_points | default(0) }}</span>
+</div>
+
+<div class="info-row">
+    <span class="info-label">Attendance Days:</span>
+    <span class="info-value">{{ user.attendance | length }}</span>
+</div>
+
+<div class="info-row">
+    <span class="info-label">Highest Quiz Score:</span>
+    <span class="info-value">{{ user.high_score | default(0) }}</span>
+
+</div>
+        </div> <!-- end of profile-card -->
+ <div class="info-row">
+    <span class="info-label">Badge:</span>
+    <span class="info-value">{{ user.badge }}</span>
+</div>       
 
 </div>
 
 {% endblock %}
+
 
 
 
