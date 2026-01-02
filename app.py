@@ -1050,7 +1050,39 @@ def submit_homework(username, role, avatar):
                            role=role,
                            avatar=avatar,
                            message=message)
+    
+@app.route("/feedback/<int:index>/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def give_feedback(index, username, role, avatar):
+    if role != "teacher":
+        return "Access denied.", 403
 
+    data = load_json("homework.json")
+    submissions = data.get("homework", [])
+
+    if index < 0 or index >= len(submissions):
+        return "Submission not found."
+
+    submission = submissions[index]
+    message = None
+
+    if request.method == "POST":
+        feedback = request.form.get("feedback")
+        reviewed = request.form.get("reviewed") == "on"
+
+        submission["feedback"] = feedback
+        submission["reviewed"] = reviewed
+
+        save_json("homework.json", data)
+        message = "Feedback saved!"
+
+    return render_template("feedback.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           submission=submission,
+                           index=index,
+                           message=message)
+    
 @app.route("/download/<filename>")
 def download(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename, as_attachment=True)
@@ -1061,6 +1093,7 @@ def download(filename):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
