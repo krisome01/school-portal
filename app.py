@@ -511,12 +511,50 @@ def add_event(username, role, avatar):
         avatar=avatar,
         message=message
     )
+@app.route("/leaderboard/<username>/<role>/<avatar>")
+def leaderboard(username, role, avatar):
+    # Pull data from your users dictionary
+    sorted_high_scores = sorted(
+        [(u, users[u].get("high_score", 0)) for u in users],
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    sorted_behaviour = sorted(
+        [(u, sum(users[u].get("behaviour_points", []))) for u in users],
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    sorted_attendance = sorted(
+        [(u, len(users[u].get("attendance", []))) for u in users],
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    sorted_house_points = sorted(
+        [(u, users[u].get("house_points", 0)) for u in users],
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    return render_template(
+        "leaderboard.html",
+        username=username,
+        role=role,
+        avatar=avatar,
+        high_scores=sorted_high_scores,
+        behaviour=sorted_behaviour,
+        attendance=sorted_attendance,
+        house_points=sorted_house_points
+    )
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
