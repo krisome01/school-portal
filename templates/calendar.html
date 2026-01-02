@@ -14,13 +14,18 @@
 {% if events %}
     <ul class="event-list">
         {% for e in events %}
-            <li class="event-item">
-                <h3>{{ e.title }}</h3>
-                <p><strong>Date:</strong> {{ e.date }}</p>
-                <p>{{ e.description }}</p>
-                <p class="event-meta">Added by {{ e.created_by }}</p>
-            </li>
-        {% endfor %}
+    <li class="event-item">
+        <h3>{{ e.title }}</h3>
+        <p><strong>Date:</strong> {{ e.date }}</p>
+        <p>{{ e.description }}</p>
+        <p class="event-meta">Added by {{ e.created_by }}</p>
+
+        {% if role == "teacher" %}
+            <a class="small-btn" href="{{ url_for('edit_event', index=loop.index0, username=username, role=role, avatar=avatar) }}">✏️ Edit</a>
+            <a class="small-btn danger" href="{{ url_for('delete_event', index=loop.index0, username=username, role=role, avatar=avatar) }}">🗑 Delete</a>
+        {% endif %}
+    </li>
+{% endfor %}
     </ul>
 {% else %}
     <p>No events yet. Check back soon!</p>
