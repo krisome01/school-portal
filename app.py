@@ -301,27 +301,45 @@ def add_house_points(username, role, avatar, student_username):
 # Add Behaviour Points
 # -----------------------------------
 
-@app.route("/add-behaviour/<username>/<role>/<avatar>/<student_username>", methods=["POST"])
-def add_behaviour(username, role, avatar, student_username):
+@app.route("/add-behaviour/<username>/<role>/<avatar>", methods=["GET", "POST"])
+def add_behaviour(username, role, avatar):
     if role != "teacher":
-        return "Access denied", 403
+        return "Access denied.", 403
 
-    points = int(request.form.get("points"))
-    reason = request.form.get("reason")
+    data = load_json("behaviour.json")
+    behaviour_data = data.get("behaviour", {})
 
-    entry = {
-        "date": today_str(),
-        "points": points,
-        "reason": reason
-    }
+    message = None
 
-    users[student_username]["behaviour_points"].append(entry)
+    if request.method == "POST":
+        student = request.form.get("student")
+        points = request.form.get("points")
+        reason = request.form.get("reason")
 
-    return redirect(url_for("view_student",
-                            username=username,
-                            role=role,
-                            avatar=avatar,
-                            student_username=student_username))
+        if not student or not points or not reason:
+            message = "Please fill in all fields."
+        else:
+            entry = {
+                "points": int(points),
+                "reason": reason,
+                "date": datetime.now().strftime("%Y-%m-%d")
+            }
+
+            if student not in behaviour_data:
+                behaviour_data[student] = []
+
+            behaviour_data[student].append(entry)
+            data["behaviour"] = behaviour_data
+            save_json("behaviour.json", data)
+
+            message = "Behaviour points added!"
+
+    return render_template("add_behaviour.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           message=message)
+
 
 # -----------------------------------
 # House Leaderboard
@@ -900,56 +918,6 @@ def delete_homework(index, username, role, avatar):
                             role=role,
                             avatar=avatar))
 
-@app.route("/behaviour/<username>/<role>/<avatar>")
-def behaviour(username, role, avatar):
-    data = load_json("behaviour.json")
-    behaviour_data = data.get("behaviour", {})
-    user_points = behaviour_data.get(username, [])
-    return render_template("behaviour.html",
-                           username=username,
-                           role=role,
-                           avatar=avatar,
-                           points=user_points)
-
-@app.route("/add-behaviour/<username>/<role>/<avatar>", methods=["GET", "POST"])
-def add_behaviour(username, role, avatar):
-    if role != "teacher":
-        return "Access denied.", 403
-
-    data = load_json("behaviour.json")
-    behaviour_data = data.get("behaviour", {})
-
-    message = None
-
-    if request.method == "POST":
-        student = request.form.get("student")
-        points = request.form.get("points")
-        reason = request.form.get("reason")
-
-        if not student or not points or not reason:
-            message = "Please fill in all fields."
-        else:
-            entry = {
-                "points": int(points),
-                "reason": reason,
-                "date": datetime.now().strftime("%Y-%m-%d")
-            }
-
-            if student not in behaviour_data:
-                behaviour_data[student] = []
-
-            behaviour_data[student].append(entry)
-            data["behaviour"] = behaviour_data
-            save_json("behaviour.json", data)
-
-            message = "Behaviour points added!"
-
-    return render_template("add_behaviour.html",
-                           username=username,
-                           role=role,
-                           avatar=avatar,
-                           message=message)
-
 @app.route("/attendance/<username>/<role>/<avatar>")
 def attendance(username, role, avatar):
     data = load_json("attendance.json")
@@ -1102,12 +1070,24 @@ def my_homework(username, role, avatar):
                            avatar=avatar,
                            submissions=submissions)
 
+@app.route("/behaviour/<username>/<role>/<avatar>")
+def behaviour(username, role, avatar):
+    data = load_json("behaviour.json")
+    behaviour_data = data.get("behaviour", {})
+    user_points = behaviour_data.get(username, [])
+    return render_template("behaviour.html",
+                           username=username,
+                           role=role,
+                           avatar=avatar,
+                           points=user_points)
+
 # -----------------------------------
 # Run App
 # -----------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
