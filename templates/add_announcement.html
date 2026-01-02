@@ -1,5 +1,21 @@
 {% extends "layout.html" %}
+{% block title %}Add Announcement{% endblock %}
+
 {% block content %}
 <h1>➕ Add Announcement</h1>
-<p>Teacher tools coming soon.</p>
+<p class="subtitle">Share important news with your students.</p>
+
+{% if message %}
+    <p class="error">{{ message }}</p>
+{% endif %}
+
+<form method="POST" class="profile-form">
+    <label>Title</label>
+    <input type="text" name="title" required>
+
+    <label>Message</label>
+    <textarea name="body" rows="5" required></textarea>
+
+    <button type="submit">Post Announcement</button>
+</form>
 {% endblock %}
